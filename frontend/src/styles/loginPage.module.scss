@@ -1,0 +1,11 @@
+@import "./variables.scss"; /* Импортируем переменные */
+
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw; /* Занимаем всю ширину экрана */
+  height: 100vh; /* Занимаем всю высоту экрана */
+  background-color:  var(--primary-color); /* Цвет фона */
+  color: var(--text-color); /* Основной цвет текста */
+}
