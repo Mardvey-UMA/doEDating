@@ -2,7 +2,6 @@ package com.example.demo.security.oauth;
 
 import com.example.demo.dto.AuthResponseDTO;
 import com.example.demo.dto.UserRequestDTO;
-import com.example.demo.dto.UserResponseDTO;
 import com.example.demo.entity.User;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.repository.UserRepository;
@@ -18,7 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import com.example.demo.service.KafkaProducerService;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -48,7 +47,7 @@ public class OAuthService {
                         "&code=" + code)
                 .retrieve()
                 .bodyToMono(String.class)
-                .flatMap(response -> handleVkResponse(response));
+                .flatMap(this::handleVkResponse);
     }
 
     private Mono<AuthResponseDTO> handleVkResponse(String response) {
@@ -71,9 +70,9 @@ public class OAuthService {
     private Mono<AuthResponseDTO> handleExistingUser(User user, String accessToken) {
         return authenticate(user)
                 .flatMap(tokenDetails -> {
-                    AuthResponseDTO authResponse = securityService.buildAuthResponse(tokenDetails); // Создаем правильный DTO
+                    AuthResponseDTO authResponse = securityService.buildAuthResponse(tokenDetails);
 
-                    return Mono.just(authResponse); // Возвращаем AuthResponseDTO
+                    return Mono.just(authResponse);
                 });
     }
 
