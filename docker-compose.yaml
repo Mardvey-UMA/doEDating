@@ -24,10 +24,8 @@ services:
       - "80:8080"
     depends_on:
       - demo_db
-      - kafka
     links:
       - demo_db
-      - kafka
     environment:
       JWT_SECRET: 'b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e'
       SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTID: '52450914'
@@ -38,7 +36,6 @@ services:
       SPRING_R2DBC_USERNAME: 'postgres'
       SPRING_R2DBC_PASSWORD: 'postgres'
       SPRING_FLYWAY_URL: 'jdbc:postgresql://demo_db:5432/demo_db'
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: 'kafka:9092'
     networks:
       - app-network
 # Frontend service
@@ -46,70 +43,15 @@ services:
     build:
       context: ./frontend
     ports:
-      - "3000:80" # Прокидываем порт 80 внутри контейнера на 3000 на хосте
+      - "3000:80" 
     depends_on:
-      - app # frontend зависит от backend
+      - app 
     networks:
       - app-network
 
-  # Zookeeper service
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    ports:
-      - "2181:2181"
-    networks:
-      - app-network
-
-  # Kafka service
-  kafka:
-    image: confluentinc/cp-kafka:latest
-    container_name: kafka
-    depends_on:
-      - zookeeper
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
-      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_JMX_PORT: 9997
-      KAFKA_JMX_HOSTNAME: kafka
-    ports:
-      - "9092:9092"
-    networks:
-      - app-network
-
-  # Kafka UI service for monitoring and sending messages
-  kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    container_name: kafka-ui
-    ports:
-      - "8082:8080"
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local-cluster
-      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092  # Use the same network and Kafka broker address
-    depends_on:
-      - kafka
-    networks:
-      - app-network
-
-# Defining networks
 networks:
   app-network:
     driver: bridge
 
-# Defining volumes
 volumes:
   pg_demo:

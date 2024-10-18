@@ -1,14 +1,4 @@
 spring:
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: group_id
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/demo_db
     username: postgres
@@ -23,9 +13,6 @@ spring:
     oauth2:
       client:
         registration:
-          google:
-            clientId: xyz
-            clientSecret: xyz
           vk:
             clientName: vk
             clientId: xyz
