@@ -7,13 +7,12 @@ export const fetchWithToken = async <T>(
   try {
     const response = await fetch(url, {
       ...options,
-      credentials: "include", // Важно для cookies
+      credentials: "include",
     });
 
     if (response.status === 401) {
-      // Попытка обновить токен, если запрос вернул 401
       await refreshAccessToken();
-      return fetchWithToken<T>(url, options); // Повторить запрос после обновления токена
+      return fetchWithToken<T>(url, options);
     }
 
     if (!response.ok) {

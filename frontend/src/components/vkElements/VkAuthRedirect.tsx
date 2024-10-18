@@ -6,17 +6,16 @@ const VkAuthCallback: React.FC = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const accessToken = params.get("access_token");
     const userId = params.get("user_id");
 
-    if (accessToken && userId) {
+    if (userId) {
       navigate("/home");
     } else {
       console.error("Access token или User ID не найдены в URL");
     }
   }, [navigate]);
 
-  return <div>Авторизация через VK успешно завершена, перенаправляем...</div>;
+  return <></>;
 };
 
 export default VkAuthCallback;

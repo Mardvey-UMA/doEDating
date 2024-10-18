@@ -5,26 +5,11 @@ import { fetchWithToken } from "./fetchService";
 
 export const fetchUsers = async (): Promise<User[]> => {
   try {
-    console.log("Отправка запроса для получения списка пользователей");
-
-    // Используем fetchWithToken для отправки запроса с проверкой токена
-    // Ожидаем массив объектов UserResponse с полным набором полей
     const response = await fetchWithToken<UserResponse[]>(`/api/users`, {
       method: "GET",
       credentials: "include",
     });
 
-    // Логируем ответ сервера для отладки
-    console.log("Ответ сервера:", response);
-
-    // Проверяем, является ли response массивом
-    if (!Array.isArray(response)) {
-      throw new Error(
-        "Некорректный ответ сервера: ожидается массив пользователей"
-      );
-    }
-
-    // Преобразуем данные: извлекаем только нужные поля
     const users: User[] = response.map((user: UserResponse) => ({
       id: user.id,
       username: user.username,
@@ -82,18 +67,15 @@ export const deleteUser = async (id: number): Promise<void> => {
 };
 export const fetchUserById = async (id: number): Promise<User> => {
   try {
-    // Формируем URL с параметром ID
     const response = await fetchWithToken<UserResponse>(`/api/users/${id}`, {
       method: "GET",
       credentials: "include",
     });
 
-    // Проверяем, корректный ли ответ от сервера
     if (!response) {
       throw new Error(`Пользователь с ID ${id} не найден`);
     }
 
-    // Преобразуем данные: извлекаем только нужные поля
     const user: User = {
       id: response.id,
       username: response.username,
@@ -107,16 +89,14 @@ export const fetchUserById = async (id: number): Promise<User> => {
     throw new Error(`Ошибка получения пользователя с ID ${id}`);
   }
 };
-// Функция для получения информации о текущем пользователе
+
 export const fetchUserInfo = async (): Promise<User> => {
   try {
-    // Отправляем запрос на /api/auth/info с проверкой токена
     const response = await fetchWithToken<UserResponse>(`/api/auth/info`, {
       method: "GET",
       credentials: "include",
     });
 
-    // Проверяем ответ
     if (!response) {
       throw new Error("Не удалось получить информацию о пользователе");
     }

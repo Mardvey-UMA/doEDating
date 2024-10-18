@@ -57,17 +57,19 @@ public class AuthController {
 
     @GetMapping("/login/oauth2/code/vk")
     public Mono<Void> handleRedirect(@RequestParam("code") String code, ServerHttpResponse response) {
-        return oAuthService.authenticate(code)
+        return oAuthService.authenticate(code, response)
                 .flatMap(authResponse -> {
+                    securityService.setAccessTokenInCookie(response, authResponse.getAccessToken());
 
-                    String redirectUrl = String.format(redirectUrlAuthVk,
-                            authResponse.getAccessToken(), authResponse.getUserId());
+                    String redirectUrl = String.format(redirectUrlAuthVk, authResponse.getAccessToken(), authResponse.getUserId());
 
                     response.setStatusCode(HttpStatus.FOUND);
                     response.getHeaders().setLocation(URI.create(redirectUrl));
                     return Mono.empty();
                 });
     }
+
+
 
 
     @GetMapping("/info")

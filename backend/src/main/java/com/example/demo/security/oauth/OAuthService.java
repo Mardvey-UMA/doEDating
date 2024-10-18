@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -38,7 +39,7 @@ public class OAuthService {
     @Value("${spring.security.oauth2.client.registration.vk.redirect-uri}")
     private String redirectUri;
 
-    public Mono<AuthResponseDTO> authenticate(String code) {
+    public Mono<AuthResponseDTO> authenticate(String code, ServerHttpResponse serverResponse) {
         return webClient
                 .get()
                 .uri("https://oauth.vk.com/access_token?client_id=" + clientId +
@@ -47,10 +48,11 @@ public class OAuthService {
                         "&code=" + code)
                 .retrieve()
                 .bodyToMono(String.class)
-                .flatMap(this::handleVkResponse);
+                .flatMap(response -> handleVkResponse(response, serverResponse));  // Передаем два аргумента
     }
 
-    private Mono<AuthResponseDTO> handleVkResponse(String response) {
+
+    private Mono<AuthResponseDTO> handleVkResponse(String response, ServerHttpResponse serverResponse) {
         String accessToken = extractAccessTokenVk(response);
         String userId = extractUserIdVk(response);
         Long vkId = Long.parseLong(userId);
@@ -62,21 +64,21 @@ public class OAuthService {
             String domain = userResponse.get("domain").asText();
 
             return userRepository.findByVkId(vkId)
-                    .flatMap(user -> handleExistingUser(user, accessToken))
-                    .switchIfEmpty(handleNewUserRegistration(firstName, lastName, domain, vkId));
+                    .flatMap(user -> handleExistingUser(user, accessToken, serverResponse))
+                    .switchIfEmpty(handleNewUserRegistration(firstName, lastName, domain, vkId, serverResponse));
         });
     }
 
-    private Mono<AuthResponseDTO> handleExistingUser(User user, String accessToken) {
+    private Mono<AuthResponseDTO> handleExistingUser(User user, String accessToken, ServerHttpResponse response) {
         return authenticate(user)
                 .flatMap(tokenDetails -> {
                     AuthResponseDTO authResponse = securityService.buildAuthResponse(tokenDetails);
-
+                    securityService.setAccessTokenInCookie(response, authResponse.getAccessToken());
                     return Mono.just(authResponse);
                 });
     }
 
-    private Mono<AuthResponseDTO> handleNewUserRegistration(String firstName, String lastName, String username, Long vkId) {
+    private Mono<AuthResponseDTO> handleNewUserRegistration(String firstName, String lastName, String username, Long vkId, ServerHttpResponse response) {
         return userService.createVk(UserRequestDTO.builder()
                         .firstName(firstName)
                         .lastName(lastName)
@@ -85,7 +87,7 @@ public class OAuthService {
                 .flatMap(newUser -> authenticate(userMapper.responseMap(newUser))
                         .flatMap(tokenDetails -> {
                             AuthResponseDTO authResponse = securityService.buildAuthResponse(tokenDetails);
-
+                            securityService.setAccessTokenInCookie(response, authResponse.getAccessToken());
                             return Mono.just(authResponse);
                         }));
     }
