@@ -1,5 +1,4 @@
 export const login = async (data: { username: string; password: string }) => {
-  console.log(data);
   const response = await fetch("/api/auth/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -20,7 +19,6 @@ export const register = async (data: {
   first_name: string;
   last_name: string;
 }) => {
-  console.log(data);
   const response = await fetch("/api/users", {
     method: "POST",
     headers: { "Content-Type": "application/json" },

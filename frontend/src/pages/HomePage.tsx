@@ -5,14 +5,10 @@ import {
   fetchUsers,
   updateUser,
   deleteUser,
+  fetchUserById,
+  fetchUserInfo,
 } from "../../src/services/apiService";
-
-interface User {
-  id: number;
-  first_name: string;
-  last_name: string;
-  username: string;
-}
+import { User } from "../components/tsVariables/types";
 
 const HomePage: React.FC = () => {
   const [usersList, setUsersList] = useState<User[]>([]);
@@ -21,20 +17,32 @@ const HomePage: React.FC = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
-
+  const [userId, setUserId] = useState<number | "">("");
+  const [user, setUser] = useState<User | null>(null); // Для поиска по ID
+  const [currentUser, setCurrentUser] = useState<User | null>(null); // Для авторизованного пользователя
+  const [error, setError] = useState<string>("");
   useEffect(() => {
+    // При монтировании компонента получаем список пользователей
     handleGetUsers();
+    handleGetCurrentUser();
   }, []);
 
   const handleGetUsers = async () => {
     try {
-      const users: User[] = await fetchUsers(); 
-      setUsersList(users); 
+      const users: User[] = await fetchUsers(); // Получаем список пользователей
+      setUsersList(users); // Обновляем состояние с пользователями
     } catch (error) {
-      console.error("Ошибка получения списка пользователей:", error);
+      console.error(error);
     }
   };
-
+  const handleGetCurrentUser = async () => {
+    try {
+      const fetchedUser = await fetchUserInfo();
+      setCurrentUser(fetchedUser);
+    } catch (error) {
+      console.error("Ошибка при получении текущего пользователя:", error);
+    }
+  };
   // Изменение пользователя
   const handleUpdateUser = async () => {
     if (selectedUserId !== "") {
@@ -59,7 +67,7 @@ const HomePage: React.FC = () => {
         await updateUser(Number(selectedUserId), updatedUserData);
 
         alert("Пользователь успешно обновлен");
-        handleGetUsers(); 
+        handleGetUsers(); // Обновляем список после изменения пользователя
       } catch (error) {
         console.error("Ошибка обновления пользователя:", error);
       }
@@ -68,6 +76,7 @@ const HomePage: React.FC = () => {
     }
   };
 
+  // Удаление пользователя
   const handleDeleteUser = async () => {
     if (deleteUserId !== "") {
       try {
@@ -80,21 +89,53 @@ const HomePage: React.FC = () => {
       }
     }
   };
-
+  const handleFetchUserById = async () => {
+    if (userId !== "") {
+      try {
+        const fetchedUser = await fetchUserById(Number(userId));
+        setUser(fetchedUser);
+        setError(""); // Сбрасываем ошибку, если запрос успешен
+      } catch (err) {
+        setError(`Ошибка: ${err}`);
+        setUser(null);
+      }
+    }
+  };
   return (
     <div className={styles.pageContainer}>
       <Box>
-        <Typography variant="h6">Список пользователей:</Typography>
-        <ul>
-          {usersList.map((user) => (
-            <li key={user.id}>
-              ID: {user.id} - {user.first_name} {user.last_name} (
-              {user.username})
-            </li>
-          ))}
-        </ul>
+        <Typography variant="h6">
+          Информация об авторизованном пользователе:
+        </Typography>
+        {currentUser ? (
+          <Box>
+            <p>ID: {currentUser.id}</p>
+            <p>Имя: {currentUser.first_name}</p>
+            <p>Фамилия: {currentUser.last_name}</p>
+            <p>Логин: {currentUser.username}</p>
+          </Box>
+        ) : (
+          <p>Не удалось получить данные о пользователе</p>
+        )}
       </Box>
 
+      <Box>
+        <Typography variant="h6">Список пользователей:</Typography>
+        {usersList.length > 0 ? (
+          <ul>
+            {usersList.map((user) => (
+              <li key={user.id}>
+                ID: {user.id} - {user.first_name} {user.last_name} (
+                {user.username})
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Нет пользователей для отображения</p>
+        )}
+      </Box>
+
+      {/* Поля для изменения пользователя */}
       <Box className={styles.rowContainer}>
         <TextField
           label="ID для изменения"
@@ -127,6 +168,34 @@ const HomePage: React.FC = () => {
         </Button>
       </Box>
 
+      <Typography variant="h6">Поиск пользователя по ID:</Typography>
+      <TextField
+        label="Введите ID пользователя"
+        value={userId}
+        onChange={(e) =>
+          setUserId(e.target.value ? Number(e.target.value) : "")
+        }
+        fullWidth
+      />
+      <Button variant="contained" onClick={handleFetchUserById}>
+        Найти пользователя
+      </Button>
+
+      {/* Отображаем информацию о пользователе по ID */}
+      {user && (
+        <Box>
+          <Typography variant="h6">Информация о пользователе:</Typography>
+          <p>ID: {user.id}</p>
+          <p>Имя: {user.first_name}</p>
+          <p>Фамилия: {user.last_name}</p>
+          <p>Логин: {user.username}</p>
+        </Box>
+      )}
+
+      {/* Отображаем ошибку, если запрос завершился неудачно */}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      {/* Поля для удаления пользователя */}
       <Box className={styles.rowContainer}>
         <TextField
           label="Введите ID пользователя для удаления"
