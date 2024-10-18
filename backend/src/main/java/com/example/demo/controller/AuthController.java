@@ -35,14 +35,17 @@ public class AuthController {
     private String redirectUrlAuthVk;
 
     @PostMapping("/login")
-    public Mono<AuthResponseDTO> login(@RequestBody AuthRequestDTO dto) {
-        return securityService.login(dto);
+    public Mono<AuthResponseDTO> login(@RequestBody AuthRequestDTO dto, ServerHttpResponse response) {
+        return securityService.login(dto, response);
     }
 
     @PostMapping("/refresh")
-    public Mono<AuthResponseDTO> refresh(@RequestBody RefreshDTO dto) {
-        log.info(dto.getRefreshToken());
-        return securityService.refresh(dto);
+    public Mono<AuthResponseDTO> refresh(@RequestBody RefreshDTO dto, ServerHttpResponse response) {
+        return securityService.refresh(dto, response)
+                .flatMap(authResponse -> {
+                    securityService.setAccessTokenInCookie(response, authResponse.getAccessToken());
+                    return Mono.just(authResponse);
+                });
     }
 
     @GetMapping("/oauth2/vk")

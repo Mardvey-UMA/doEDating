@@ -6,7 +6,7 @@ import theme from "../src/styles/themes/theme";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage"; // Добавляем импорт
-import VkAuthCallback from "./components/VkAuthRedirect";
+import VkAuthCallback from "./components/vkElements/VkAuthRedirect";
 function App() {
   return (
     <ThemeProvider theme={theme}>

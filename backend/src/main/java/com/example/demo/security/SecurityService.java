@@ -15,10 +15,13 @@ import com.example.demo.entity.User;
 import com.example.demo.exception.AuthException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.*;
 
 @Component
@@ -99,10 +102,12 @@ public class SecurityService {
 
     }
 
-    public Mono<AuthResponseDTO> login(AuthRequestDTO dto) {
+    public Mono<AuthResponseDTO> login(AuthRequestDTO dto, ServerHttpResponse response) {
         return authenticate(dto.getUsername(), dto.getPassword())
-                .flatMap(tokenDetails -> Mono.just(buildAuthResponse(tokenDetails)));
-
+                .flatMap(tokenDetails -> {
+                    setAccessTokenInCookie(response, tokenDetails.getAccessToken());
+                    return Mono.just(buildAuthResponse(tokenDetails));
+                });
     }
 
 
@@ -129,17 +134,32 @@ public class SecurityService {
     }
 
 
-    public Mono<AuthResponseDTO> refresh(RefreshDTO refreshDTO) {
+    public Mono<AuthResponseDTO> refresh(RefreshDTO refreshDTO, ServerHttpResponse response) {
         String refreshToken = refreshDTO.getRefreshToken();
         Claims claims = jwtHandler.getClaimsFromToken(refreshToken, TokenType.REFRESH);
         String username = claims.get("username", String.class);
+
         return userService.getByUsername(username)
                 .flatMap(dto -> {
                     User user = userMapper.responseMap(dto);
-                    return Mono.just(buildAuthResponse(generateToken(user).toBuilder()
+
+                    TokenDetails tokenDetails = generateToken(user).toBuilder()
                             .userId(user.getId())
-                            .build()));
+                            .build();
+
+                    setAccessTokenInCookie(response, tokenDetails.getAccessToken());
+
+                    return Mono.just(buildAuthResponse(tokenDetails));
                 });
     }
 
+    public void setAccessTokenInCookie(ServerHttpResponse response, String accessToken) {
+        ResponseCookie cookie = ResponseCookie.from("access_token", accessToken)
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(Duration.ofSeconds(accessExpirationInSeconds))
+                .build();
+        response.addCookie(cookie);
+    }
 }

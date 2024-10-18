@@ -1,18 +1,22 @@
 package com.example.demo.config;
 
+import com.example.demo.security.CustomPrincipal;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import com.example.demo.security.AuthenticationManager;
-import com.example.demo.security.BearerTokenServerAuthenticationConverter;
 import com.example.demo.security.JwtHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpCookie;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientManager;
@@ -24,9 +28,13 @@ import org.springframework.security.oauth2.client.web.reactive.function.client.S
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
+import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import org.springframework.web.server.ServerWebExchange;
+
+import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -35,7 +43,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 public class SecurityConfig {
-
     @Value("${jwt.secret}")
     private String secret;
 
@@ -52,12 +59,12 @@ public class SecurityConfig {
             "/swagger-ui/index.html", // Swagger UI main page
             "/swagger-ui/**" // Swagger UI assets
     };
-    @Bean
-    PasswordEncoder passwordEncoder()
-    {
-        return (PasswordEncoder) new BCryptPasswordEncoder();
-    }
 
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public ReactiveOAuth2AuthorizedClientManager authorizedClientManager(
@@ -76,7 +83,6 @@ public class SecurityConfig {
         authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
         return authorizedClientManager;
     }
-
 
     @Bean
     WebClient webClient(ReactiveOAuth2AuthorizedClientManager authorizedClientManager) {
@@ -114,8 +120,38 @@ public class SecurityConfig {
 
     private AuthenticationWebFilter bearerAuthenticationFilter(AuthenticationManager authenticationManager) {
         AuthenticationWebFilter bearerAuthenticationFilter = new AuthenticationWebFilter(authenticationManager);
-        bearerAuthenticationFilter.setServerAuthenticationConverter(new BearerTokenServerAuthenticationConverter(new JwtHandler(secret)));
+        bearerAuthenticationFilter.setServerAuthenticationConverter(new CookieTokenServerAuthenticationConverter(new JwtHandler(secret)));
         bearerAuthenticationFilter.setRequiresAuthenticationMatcher(ServerWebExchangeMatchers.pathMatchers("/**"));
         return bearerAuthenticationFilter;
+    }
+
+    public static class CookieTokenServerAuthenticationConverter implements ServerAuthenticationConverter {
+
+        private final JwtHandler jwtHandler;
+
+        public CookieTokenServerAuthenticationConverter(JwtHandler jwtHandler) {
+            this.jwtHandler = jwtHandler;
+        }
+
+        @Override
+        public Mono<Authentication> convert(ServerWebExchange exchange) {
+            return Mono.justOrEmpty(exchange.getRequest().getCookies().getFirst("access_token"))
+                    .map(HttpCookie::getValue)
+                    .flatMap(token -> jwtHandler.check(token)
+                            .flatMap(verificationResult -> {
+                                Claims claims = verificationResult.claims;
+                                String username = claims.get("username", String.class);
+                                String subject = claims.getSubject();
+                                Long userId = Long.parseLong(subject);
+
+                                CustomPrincipal principal = new CustomPrincipal(userId, username);
+
+                                return Mono.just((Authentication) new UsernamePasswordAuthenticationToken(principal, null, List.of()));
+                            })
+                    ).onErrorResume(e -> {
+                        log.error("Token validation failed", e);
+                        return Mono.empty();
+                    });
+        }
     }
 }
