@@ -1,14 +1,36 @@
-import { refreshAccessToken } from "./authService";
+import { refreshAccessToken } from "./refreshService";
+
+let accessToken: string | null = localStorage.getItem("accessToken");
+let isRefreshing = false;
+
+let failedQueue: Array<{
+  resolve: (token: string) => void;
+  reject: (error: Error) => void;
+}> = [];
+
+const processQueue = (error: Error | null, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else if (token) {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
 
 export const fetchWithToken = async <T>(
   url: string,
   options: RequestInit = {}
 ): Promise<T | void> => {
-  const token = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    accessToken = localStorage.getItem("accessToken");
+  }
 
   const headers = {
     ...options.headers,
-    Authorization: token ? `Bearer ${token}` : "",
+    Authorization: accessToken ? `Bearer ${accessToken}` : "",
   };
 
   try {
@@ -18,8 +40,40 @@ export const fetchWithToken = async <T>(
     });
 
     if (response.status === 401) {
-      await refreshAccessToken();
-      return fetchWithToken<T>(url, options);
+      if (!isRefreshing) {
+        isRefreshing = true;
+
+        try {
+          const { accessToken: newToken } = await refreshAccessToken();
+          accessToken = newToken;
+          localStorage.setItem("accessToken", newToken);
+          processQueue(null, newToken);
+        } catch (err) {
+          processQueue(err as Error, null);
+          throw new Error("Ошибка при обновлении токена");
+        } finally {
+          isRefreshing = false;
+        }
+      }
+
+      return new Promise<T | void>((resolve, reject) => {
+        failedQueue.push({
+          resolve: (newToken: string) => {
+            options.headers = {
+              ...options.headers,
+              Authorization: `Bearer ${newToken}`,
+            };
+            fetchWithToken<T>(url, options)
+              .then((result) => {
+                if (result !== undefined) {
+                  resolve(result);
+                }
+              })
+              .catch(reject);
+          },
+          reject,
+        });
+      });
     }
 
     if (response.status === 204) {

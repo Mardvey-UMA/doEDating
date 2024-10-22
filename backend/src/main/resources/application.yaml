@@ -33,10 +33,10 @@ spring:
 
 jwt:
   secret: b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e
-  expiration: 60
+  expiration: 1800
   issuer: demo
 front:
-  redirect-uri: http://localhost:3000/login/oauth2/callback?access_token=%s&user_id=%d
+  redirect-uri: http://localhost:3000/login/oauth2/callback?access_token=%s&access_expires_at=%d
 
 module-name: aboba
 api-version: 1.0.0

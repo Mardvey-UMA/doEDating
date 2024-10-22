@@ -1,14 +1,4 @@
 spring:
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: group_id
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/demo_db
     username: postgres
@@ -23,9 +13,6 @@ spring:
     oauth2:
       client:
         registration:
-          google:
-            clientId: xyz
-            clientSecret: xyz
           vk:
             clientName: vk
             clientId: xyz
@@ -44,12 +31,12 @@ spring:
             userInfoUri: https://api.vk.com/method/users.get?v=199
             userNameAttribute: response
 
-
 jwt:
   secret: b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e
-  expiration: 15000
+  expiration: 120
   issuer: demo
-
+front:
+  redirect-uri: http://localhost:3000/login/oauth2/callback?access_token=%s&user_id=%d
 
 module-name: aboba
 api-version: 1.0.0

@@ -15,7 +15,7 @@ const registerUser = async (data) => {
 };
 
 const registerUsers = async () => {
-  for (let i = 1; i <= 1000; i++) {
+  for (let i = 1; i <= 5; i++) {
     const userData = {
       username: i.toString(),
       password: i.toString(),

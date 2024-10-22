@@ -64,7 +64,7 @@ public class AuthController {
         return oAuthService.authenticate(code, response)
                 .flatMap(authResponse -> {
 
-                    String redirectUrl = String.format(redirectUrlAuthVk, authResponse.getAccessToken(), authResponse.getUserId());
+                    String redirectUrl = String.format(redirectUrlAuthVk, authResponse.getAccessToken(), authResponse.getAccessExpiresAt().getTime());
 
                     response.setStatusCode(HttpStatus.FOUND);
                     response.getHeaders().setLocation(URI.create(redirectUrl));
