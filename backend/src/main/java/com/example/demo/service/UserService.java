@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.UserResponseDTO;
 import com.example.demo.dto.UserRequestDTO;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -16,4 +17,5 @@ public interface UserService {
     Mono<UserResponseDTO> createVk(UserRequestDTO userDTO, Long vkId);
     Mono<UserResponseDTO> update(Long id, UserRequestDTO userDTO);
     Mono<Void> delete(Long id);
+    Mono<UserResponseDTO> getAuthenticatedUser(Authentication authentication);
 }

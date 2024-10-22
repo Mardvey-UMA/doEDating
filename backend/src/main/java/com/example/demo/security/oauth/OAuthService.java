@@ -1,5 +1,9 @@
 package com.example.demo.security.oauth;
 
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.demo.dto.AuthResponseDTO;
 import com.example.demo.dto.UserRequestDTO;
 import com.example.demo.entity.User;
@@ -8,18 +12,13 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.security.SecurityService;
 import com.example.demo.security.TokenDetails;
 import com.example.demo.service.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class OAuthService {
@@ -39,7 +38,13 @@ public class OAuthService {
     @Value("${spring.security.oauth2.client.registration.vk.redirect-uri}")
     private String redirectUri;
 
-    public Mono<AuthResponseDTO> authenticate(String code, ServerHttpResponse serverResponse) {
+    private Mono<TokenDetails> authenticate(User user) {
+        return Mono.just(securityService.generateToken(user).toBuilder()
+                .userId(user.getId())
+                .build());
+    }
+
+    public Mono<AuthResponseDTO> authenticate(String code, ServerHttpResponse response) {
         return webClient
                 .get()
                 .uri("https://oauth.vk.com/access_token?client_id=" + clientId +
@@ -48,56 +53,32 @@ public class OAuthService {
                         "&code=" + code)
                 .retrieve()
                 .bodyToMono(String.class)
-                .flatMap(response -> handleVkResponse(response, serverResponse));  // Передаем два аргумента
-    }
+                .flatMap(vkResponse -> {
+                    String accessToken = extractAccessTokenVk(vkResponse);
+                    String userId = extractUserIdVk(vkResponse);
+                    Long vkId = Long.parseLong(userId);
 
+                    return getUserInfoVk(accessToken, userId).flatMap(userInfoResponse -> {
+                        JsonNode jsonNode = parseJson(userInfoResponse);
+                        JsonNode userResponse = jsonNode.get("response").get(0);
+                        String firstName = userResponse.get("first_name").asText();
+                        String lastName = userResponse.get("last_name").asText();
+                        String domain = userResponse.get("domain").asText();
 
-    private Mono<AuthResponseDTO> handleVkResponse(String response, ServerHttpResponse serverResponse) {
-        String accessToken = extractAccessTokenVk(response);
-        String userId = extractUserIdVk(response);
-        Long vkId = Long.parseLong(userId);
-
-        return getUserInfoVk(accessToken, userId).flatMap(userInfoResponse -> {
-            JsonNode userResponse = parseJson(userInfoResponse).get("response").get(0);
-            String firstName = userResponse.get("first_name").asText();
-            String lastName = userResponse.get("last_name").asText();
-            String domain = userResponse.get("domain").asText();
-
-            return userRepository.findByVkId(vkId)
-                    .flatMap(user -> handleExistingUser(user, accessToken, serverResponse))
-                    .switchIfEmpty(handleNewUserRegistration(firstName, lastName, domain, vkId, serverResponse));
-        });
-    }
-
-    private Mono<AuthResponseDTO> handleExistingUser(User user, String accessToken, ServerHttpResponse response) {
-        return authenticate(user)
-                .flatMap(tokenDetails -> {
-                    AuthResponseDTO authResponse = securityService.buildAuthResponse(tokenDetails);
-                    securityService.setAccessTokenInCookie(response, authResponse.getAccessToken());
-                    return Mono.just(authResponse);
+                        return userRepository.findByVkId(vkId)
+                                .flatMap(this::authenticate)
+                                .switchIfEmpty(userService.createVk(UserRequestDTO.builder()
+                                                .firstName(firstName)
+                                                .lastName(lastName)
+                                                .username(domain)
+                                                .build(), vkId)
+                                        .flatMap(createdUser -> authenticate(userMapper.responseMap(createdUser))))
+                                .flatMap(tokenDetails -> {
+                                    securityService.setTokens(response, tokenDetails);
+                                    return Mono.just(securityService.buildAuthResponse(tokenDetails));
+                                });
+                    });
                 });
-    }
-
-    private Mono<AuthResponseDTO> handleNewUserRegistration(String firstName, String lastName, String username, Long vkId, ServerHttpResponse response) {
-        return userService.createVk(UserRequestDTO.builder()
-                        .firstName(firstName)
-                        .lastName(lastName)
-                        .username(username)
-                        .build(), vkId)
-                .flatMap(newUser -> authenticate(userMapper.responseMap(newUser))
-                        .flatMap(tokenDetails -> {
-                            AuthResponseDTO authResponse = securityService.buildAuthResponse(tokenDetails);
-                            securityService.setAccessTokenInCookie(response, authResponse.getAccessToken());
-                            return Mono.just(authResponse);
-                        }));
-    }
-
-
-
-    private Mono<TokenDetails> authenticate(User user) {
-        return Mono.just(securityService.generateToken(user).toBuilder()
-                .userId(user.getId())
-                .build());
     }
 
     public Mono<String> getUserInfoVk(String accessToken, String userId) {

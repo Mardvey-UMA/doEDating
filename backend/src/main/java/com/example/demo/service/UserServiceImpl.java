@@ -4,11 +4,13 @@ import com.example.demo.dto.UserResponseDTO;
 import com.example.demo.dto.UserRequestDTO;
 import com.example.demo.enums.Provider;
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.security.CustomPrincipal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.example.demo.entity.User;
 import com.example.demo.enums.UserRole;
 import com.example.demo.repository.UserRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -103,6 +105,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Mono<Void> delete(Long id) {
         return userRepository.deleteById(id);
+    }
+
+    @Override
+    public Mono<UserResponseDTO> getAuthenticatedUser(Authentication authentication) {
+        if (authentication == null) return Mono.empty();
+
+        return getById( ((CustomPrincipal) authentication.getPrincipal()).getId());
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.RefreshDTO;
 import com.example.demo.security.oauth.OAuthService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import com.example.demo.dto.AuthRequestDTO;
 import com.example.demo.dto.AuthResponseDTO;
@@ -35,20 +36,23 @@ public class AuthController {
     @Value("${front.redirect-uri}")
     private String redirectUrlAuthVk;
 
+    @Operation(
+            summary = "Вход пользователя",
+            description = "Авторизация пользователя с использованием учетных данных.")
     @PostMapping("/login")
     public Mono<AuthResponseDTO> login(@RequestBody AuthRequestDTO dto, ServerHttpResponse response) {
         return securityService.login(dto, response);
     }
 
+    @Operation(
+            summary = "Обновление токена",
+            description = "Обновить токен доступа с использованием refresh-токена.")
     @PostMapping("/refresh")
-    public Mono<AuthResponseDTO> refresh(@RequestBody RefreshDTO dto, ServerHttpResponse response) {
-        return securityService.refresh(dto, response)
-                .flatMap(authResponse -> {
-                    securityService.setAccessTokenInCookie(response, authResponse.getAccessToken());
-                    return Mono.just(authResponse);
-                });
+    public Mono<AuthResponseDTO> refresh(
+            @CookieValue("refresh_token") String refreshToken,
+            ServerHttpResponse response) {
+        return securityService.refresh(refreshToken, response);
     }
-
 
     @GetMapping("/oauth2/vk")
     public Mono<Void> oauth2(@RegisteredOAuth2AuthorizedClient("vk") OAuth2AuthorizedClient authorizedClient) {
@@ -59,7 +63,6 @@ public class AuthController {
     public Mono<Void> handleRedirect(@RequestParam("code") String code, ServerHttpResponse response) {
         return oAuthService.authenticate(code, response)
                 .flatMap(authResponse -> {
-                    securityService.setAccessTokenInCookie(response, authResponse.getAccessToken());
 
                     String redirectUrl = String.format(redirectUrlAuthVk, authResponse.getAccessToken(), authResponse.getUserId());
 
@@ -67,14 +70,5 @@ public class AuthController {
                     response.getHeaders().setLocation(URI.create(redirectUrl));
                     return Mono.empty();
                 });
-    }
-
-
-
-
-    @GetMapping("/info")
-    public Mono<UserResponseDTO> getUserInfo(Authentication authentication) {
-        CustomPrincipal customPrincipal = (CustomPrincipal) authentication.getPrincipal();
-        return userService.getById(customPrincipal.getId());
     }
 }
