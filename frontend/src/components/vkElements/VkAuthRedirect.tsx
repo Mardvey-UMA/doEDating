@@ -7,8 +7,9 @@ const VkAuthCallback: React.FC = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const userId = params.get("user_id");
-
-    if (userId) {
+    const accessToken = params.get("access_token");
+    if (userId && accessToken) {
+      localStorage.setItem("accessToken", accessToken.toString());
       navigate("/home");
     } else {
       console.error("Access token или User ID не найдены в URL");

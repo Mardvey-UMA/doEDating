@@ -31,10 +31,9 @@ spring:
             userInfoUri: https://api.vk.com/method/users.get?v=199
             userNameAttribute: response
 
-
 jwt:
   secret: b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e
-  expiration: 15000
+  expiration: 60
   issuer: demo
 front:
   redirect-uri: http://localhost:3000/login/oauth2/callback?access_token=%s&user_id=%d

@@ -1,13 +1,12 @@
-import { refreshAccessToken } from "./authService";
 import { User, UserResponse } from "../components/tsVariables/types";
 
 import { fetchWithToken } from "./fetchService";
 
+// Функция для получения списка пользователей
 export const fetchUsers = async (): Promise<User[]> => {
   try {
     const response = await fetchWithToken<UserResponse[]>(`/api/users`, {
       method: "GET",
-      credentials: "include",
     });
 
     const users: User[] = response.map((user: UserResponse) => ({
@@ -24,6 +23,7 @@ export const fetchUsers = async (): Promise<User[]> => {
   }
 };
 
+// Функция для обновления данных пользователя
 export const updateUser = async (
   id: number,
   updatedFields: Partial<{
@@ -33,43 +33,35 @@ export const updateUser = async (
     password: string;
   }>
 ): Promise<User> => {
-  const response = await fetch(`/api/users/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify(updatedFields),
-  });
-
-  if (!response.ok) {
-    if (response.status === 401) {
-      await refreshAccessToken();
-      return updateUser(id, updatedFields);
-    }
+  try {
+    return await fetchWithToken<User>(`/api/users/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedFields),
+    });
+  } catch (error) {
+    console.error("Ошибка обновления пользователя:", error);
     throw new Error("Ошибка обновления пользователя");
   }
-
-  return response.json();
 };
 
+// Функция для удаления пользователя
 export const deleteUser = async (id: number): Promise<void> => {
-  const response = await fetch(`/api/users/${id}`, {
-    method: "DELETE",
-    credentials: "include",
-  });
-
-  if (!response.ok) {
-    if (response.status === 401) {
-      await refreshAccessToken();
-      return deleteUser(id);
-    }
+  try {
+    await fetchWithToken<void>(`/api/users/${id}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error("Ошибка удаления пользователя:", error);
     throw new Error("Ошибка удаления пользователя");
   }
 };
+
+// Функция для получения информации о пользователе по ID
 export const fetchUserById = async (id: number): Promise<User> => {
   try {
     const response = await fetchWithToken<UserResponse>(`/api/users/${id}`, {
       method: "GET",
-      credentials: "include",
     });
 
     if (!response) {
@@ -90,11 +82,11 @@ export const fetchUserById = async (id: number): Promise<User> => {
   }
 };
 
+// Функция для получения информации о текущем пользователе
 export const fetchUserInfo = async (): Promise<User> => {
   try {
-    const response = await fetchWithToken<UserResponse>(`/api/auth/info`, {
+    const response = await fetchWithToken<UserResponse>(`/api/users/info`, {
       method: "GET",
-      credentials: "include",
     });
 
     if (!response) {
@@ -107,6 +99,7 @@ export const fetchUserInfo = async (): Promise<User> => {
       first_name: response.first_name,
       last_name: response.last_name,
     };
+
     return user;
   } catch (error) {
     console.error("Ошибка при получении информации о пользователе:", error);

@@ -7,7 +7,7 @@ import {
   deleteUser,
   fetchUserById,
   fetchUserInfo,
-} from "../../src/services/apiService";
+} from "../services/userService";
 import { User } from "../components/tsVariables/types";
 
 const HomePage: React.FC = () => {

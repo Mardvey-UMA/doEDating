@@ -10,7 +10,17 @@ export const login = async (data: { username: string; password: string }) => {
     throw new Error("Ошибка авторизации");
   }
 
-  return response.json();
+  const responseData = await response.json();
+
+  const accessToken = responseData.access_token;
+
+  if (accessToken) {
+    localStorage.setItem("accessToken", accessToken);
+  } else {
+    throw new Error("Токен доступа не найден в ответе");
+  }
+
+  return responseData;
 };
 
 export const register = async (data: {
@@ -37,7 +47,6 @@ export const refreshAccessToken = async () => {
   const response = await fetch("/api/auth/refresh", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include",
   });
   if (!response.ok) {
     throw new Error("Не удалось обновить токен");
