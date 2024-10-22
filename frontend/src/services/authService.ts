@@ -47,10 +47,16 @@ export const refreshAccessToken = async () => {
   const response = await fetch("/api/auth/refresh", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+    credentials: "include",
   });
   if (!response.ok) {
     throw new Error("Не удалось обновить токен");
+  } else {
+    const responseData = await response.json();
+    console.log(responseData);
+    const accessToken = responseData.access_token;
+    console.log(accessToken);
+    localStorage.setItem("accessToken", accessToken);
   }
-
   return response.json();
 };

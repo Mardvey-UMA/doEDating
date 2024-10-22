@@ -22,15 +22,14 @@ const HomePage: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null); // Для авторизованного пользователя
   const [error, setError] = useState<string>("");
   useEffect(() => {
-    // При монтировании компонента получаем список пользователей
     handleGetUsers();
     handleGetCurrentUser();
   }, []);
 
   const handleGetUsers = async () => {
     try {
-      const users: User[] = await fetchUsers(); // Получаем список пользователей
-      setUsersList(users); // Обновляем состояние с пользователями
+      const users: User[] = await fetchUsers();
+      setUsersList(users);
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +66,7 @@ const HomePage: React.FC = () => {
         await updateUser(Number(selectedUserId), updatedUserData);
 
         alert("Пользователь успешно обновлен");
-        handleGetUsers(); // Обновляем список после изменения пользователя
+        handleGetUsers();
       } catch (error) {
         console.error("Ошибка обновления пользователя:", error);
       }
@@ -82,8 +81,8 @@ const HomePage: React.FC = () => {
       try {
         await deleteUser(Number(deleteUserId));
         alert(`Пользователь с ID ${deleteUserId} был удален`);
-        setDeleteUserId(""); // Сбрасываем поле для удаления
-        handleGetUsers(); // Обновляем список пользователей после удаления
+        setDeleteUserId("");
+        handleGetUsers();
       } catch (error) {
         console.error("Ошибка удаления пользователя:", error);
       }
@@ -94,7 +93,7 @@ const HomePage: React.FC = () => {
       try {
         const fetchedUser = await fetchUserById(Number(userId));
         setUser(fetchedUser);
-        setError(""); // Сбрасываем ошибку, если запрос успешен
+        setError("");
       } catch (err) {
         setError(`Ошибка: ${err}`);
         setUser(null);

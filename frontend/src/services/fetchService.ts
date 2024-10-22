@@ -3,7 +3,7 @@ import { refreshAccessToken } from "./authService";
 export const fetchWithToken = async <T>(
   url: string,
   options: RequestInit = {}
-): Promise<T> => {
+): Promise<T | void> => {
   const token = localStorage.getItem("accessToken");
 
   const headers = {
@@ -15,12 +15,15 @@ export const fetchWithToken = async <T>(
     const response = await fetch(url, {
       ...options,
       headers,
-      credentials: "include",
     });
 
     if (response.status === 401) {
       await refreshAccessToken();
-      return fetchWithToken<T>(url, options); // повторяем запрос после обновления токена
+      return fetchWithToken<T>(url, options);
+    }
+
+    if (response.status === 204) {
+      return;
     }
 
     if (!response.ok) {

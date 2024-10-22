@@ -9,6 +9,10 @@ export const fetchUsers = async (): Promise<User[]> => {
       method: "GET",
     });
 
+    if (!response) {
+      throw new Error("Ответ от сервера пуст.");
+    }
+
     const users: User[] = response.map((user: UserResponse) => ({
       id: user.id,
       username: user.username,
@@ -34,23 +38,30 @@ export const updateUser = async (
   }>
 ): Promise<User> => {
   try {
-    return await fetchWithToken<User>(`/api/users/${id}`, {
+    const response = await fetchWithToken<User>(`/api/users/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFields),
     });
+
+    if (!response) {
+      throw new Error("Ответ от сервера пуст.");
+    }
+
+    return response;
   } catch (error) {
     console.error("Ошибка обновления пользователя:", error);
     throw new Error("Ошибка обновления пользователя");
   }
 };
-
 // Функция для удаления пользователя
 export const deleteUser = async (id: number): Promise<void> => {
   try {
     await fetchWithToken<void>(`/api/users/${id}`, {
       method: "DELETE",
     });
+
+    console.log(`Пользователь с ID ${id} успешно удален.`);
   } catch (error) {
     console.error("Ошибка удаления пользователя:", error);
     throw new Error("Ошибка удаления пользователя");

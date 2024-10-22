@@ -11,11 +11,11 @@ import reactor.core.publisher.Mono;
 public interface UserService {
     Mono<UserResponseDTO> getById(Long id);
     Mono<UserResponseDTO> getByUsername(String username);
-    Mono<UserResponseDTO> getByVkId(Long vkId);
     Flux<UserResponseDTO> getList();
     Mono<UserResponseDTO> create(UserRequestDTO userDTO);
     Mono<UserResponseDTO> createVk(UserRequestDTO userDTO, Long vkId);
     Mono<UserResponseDTO> update(Long id, UserRequestDTO userDTO);
     Mono<Void> delete(Long id);
     Mono<UserResponseDTO> getAuthenticatedUser(Authentication authentication);
+
 }
