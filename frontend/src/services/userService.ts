@@ -1,4 +1,4 @@
-import { User, UserResponse } from "../components/tsVariables/types";
+import { User, UserResponse } from "./userService.type.ts";
 
 import { fetchWithToken } from "./fetchService";
 

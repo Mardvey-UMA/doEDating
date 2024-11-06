@@ -1,0 +1,22 @@
+/* src/pages/SearchPage/SearchPage.module.scss */
+
+.container {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.leftColumn {
+  display: grid;
+  grid-template-rows: 70% 10%;
+  gap: 10px;
+}
+
+.rightColumn {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 10px;
+}

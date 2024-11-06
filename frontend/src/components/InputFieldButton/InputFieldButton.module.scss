@@ -1,0 +1,33 @@
+.textField {
+  margin-bottom: 20px;
+  .MuiInputLabel-root {
+    color: var(--text-primary);
+    font-size: 1rem;
+    padding-left: 10px;
+    transform: translate(10px, 16px);
+    transition: all 0.2s ease;
+  }
+
+  /* Когда label "shrink", чтобы он перемещался сверху */
+  .MuiInputLabel-shrink {
+    transform: translate(10px, -6px);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .MuiInputBase-root {
+    font-size: 1rem;
+  }
+}
+
+.startAdornment {
+  color: black;
+}
+
+.iconButton {
+  color: black;
+
+  &.editing {
+    color: green;
+  }
+}

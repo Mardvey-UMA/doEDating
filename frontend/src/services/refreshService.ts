@@ -1,7 +1,7 @@
-export const refreshAccessToken = async (): Promise<{
-  accessToken: string;
-  accessExpiresAt: number;
-}> => {
+// src/services/refreshService.ts
+import store from "../store";
+
+export const refreshAccessToken = async (): Promise<string> => {
   const response = await fetch("/api/auth/refresh", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -21,26 +21,27 @@ export const refreshAccessToken = async (): Promise<{
   localStorage.setItem("accessToken", accessToken);
   localStorage.setItem("accessTokenExpirationTime", accessExpiresAt.toString());
 
-  console.log("Токен успешно обновлен", accessToken);
+  console.log("Токен успешно обновлён", accessToken);
 
   scheduleTokenRefresh(accessExpiresAt);
 
-  return { accessToken, accessExpiresAt };
+  // Обновляем состояние Redux
+  store.dispatch({ type: "auth/login/fulfilled", payload: accessToken });
+
+  return accessToken;
 };
 
 const scheduleTokenRefresh = (expirationTime: number): void => {
   const now = Date.now();
-  const refreshTime = expirationTime - 5 * 60 * 1000; 
+  const refreshTime = expirationTime - 5 * 60 * 1000; // Обновляем за 5 минут до истечения
 
   const timeUntilRefresh = refreshTime - now;
 
   if (timeUntilRefresh > 0) {
     setTimeout(async () => {
-      console.log("Обновляем токен за 5 минуту до истечения");
       await refreshAccessToken();
     }, timeUntilRefresh);
   } else {
-    console.log("Токен уже истек, обновляем его немедленно");
     refreshAccessToken();
   }
 };

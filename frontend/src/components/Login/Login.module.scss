@@ -1,0 +1,42 @@
+//@import "../../styles/variables.module.scss";
+
+.formContainer {
+  width: 100%;
+  max-height: 800px;
+  min-height: 100px;
+  max-width: 400px;
+  padding: 40px;
+  background-color: var(--background-default);
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px var(--action-disabled);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px;
+
+  h1 {
+    font-size: 24px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .loginButton {
+    background-color: var(--secondary-main);
+    color: var(--primary-main);
+
+    &:hover {
+      background-color: var(--primary-dark);
+    }
+  }
+
+  .switchButton {
+    color: var(--primary-contrast-text);
+  }
+}
+
+.error {
+  color: var(--error-main);
+  font-size: 12px;
+  margin-top: -10px;
+}

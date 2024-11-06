@@ -1,0 +1,37 @@
+//@import "../../styles/variables.module.scss";
+
+.pageContainer {
+  width: 100vw;
+  height: 100vw;
+  padding: 20px;
+}
+
+.userInfoRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.userInfoBox,
+.fetchedUserInfoBox {
+  flex: 1;
+  background-color: var(--background-default);
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.rowContainer {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.buttonContainer {
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}

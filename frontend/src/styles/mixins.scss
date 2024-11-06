@@ -9,3 +9,6 @@
 @mixin text-color($color: $text-color) {
   color: $color;
 }
+
+// Миксин для линейного градиента от черного к прозрачности
+

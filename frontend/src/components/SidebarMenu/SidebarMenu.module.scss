@@ -1,0 +1,42 @@
+.sidebarMenu {
+  position: fixed;
+  top: 250px;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  padding: 20px;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+  color: var(--primary-contrast-text);
+}
+
+.iconContainer {
+  color: var(--primary-contrast-text);
+  margin-right: 10px;
+}
+
+.icon {
+  font-size: 30px;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.active {
+  color: var(--secondary-main);
+
+  .iconContainer {
+    color: var(--secondary-main);
+  }
+
+  .label {
+    font-weight: bold;
+  }
+}
