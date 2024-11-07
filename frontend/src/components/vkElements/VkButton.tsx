@@ -1,4 +1,4 @@
-import style from "../../styles/vkButton.module.scss"; // Подключаем CSS-модуль
+import style from "./vkButton.module.scss"; // Подключаем CSS-модуль
 import React from "react";
 
 interface VkIdButtonProps {

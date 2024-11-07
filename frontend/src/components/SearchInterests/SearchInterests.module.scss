@@ -1,0 +1,27 @@
+/* src/components/SearchInterests/SearchInterests.module.scss */
+
+.container {
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.icon {
+  color: var(--primary-color);
+  margin-right: 8px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.chipsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}

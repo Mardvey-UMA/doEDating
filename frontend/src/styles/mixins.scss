@@ -1,0 +1,14 @@
+@mixin transition($property, $duration: 0.3s, $timing: ease-in-out) {
+  transition: $property $duration $timing;
+}
+
+@mixin fade-in($duration: 0.5s, $delay: 0s) {
+  animation: fadeIn $duration $delay forwards;
+}
+
+@mixin text-color($color: $text-color) {
+  color: $color;
+}
+
+// Миксин для линейного градиента от черного к прозрачности
+

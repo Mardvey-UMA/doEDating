@@ -1,0 +1,47 @@
+// src/styles/variables.light.scss
+
+$primary-main: #e9ecff;
+$primary-light: #e1e1e1;
+$primary-dark: #ededed;
+$primary-contrast-text: #000000;
+
+$secondary-main: #f50000;
+$secondary-light: #ff3030;
+$secondary-dark: #ff0000;
+$secondary-contrast-text: #ffffff;
+
+$error-main: #f44336;
+$error-light: #e57373;
+$error-dark: #d32f2f;
+$error-contrast-text: #000000;
+
+$warning-main: #ff9800;
+$warning-light: #ffb74d;
+$warning-dark: #f57c00;
+$warning-contrast-text: #ffffff;
+
+$info-main: #2196f3;
+$info-light: #64b5f6;
+$info-dark: #1976d2;
+$info-contrast-text: #ffffff;
+
+$success-main: #4caf50;
+$success-light: #81c784;
+$success-dark: #388e3c;
+$success-contrast-text: #ffffff;
+
+$background-default: #fafafa;
+$background-paper: #ffffff;
+
+$text-primary: #000000;
+$text-secondary: #757575;
+$text-disabled: #9e9e9e;
+
+$action-active: #000000; // Цвет всех полей для ввода
+$action-hover: rgba(63, 81, 181, 0.08);
+$action-selected: rgba(63, 81, 181, 0.16);
+
+$action-disabled: rgb(0, 0, 0);
+
+$action-disabled-background: rgba(0, 0, 0, 0.12);
+$action-focus: rgba(63, 81, 181, 0.12);

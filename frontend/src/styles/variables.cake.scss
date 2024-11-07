@@ -1,0 +1,48 @@
+// src/styles/variables.cake.scss
+
+$primary-main: #ffebcd;
+$primary-light: #fff4e1;
+$primary-dark: #ffead4;
+$primary-contrast-text: #8b0000;
+
+$secondary-main: #ff69b4;
+$secondary-light: #ff8ccf;
+$secondary-dark: #c2185b;
+$secondary-contrast-text: #ffffff;
+
+$error-main: #ff6347;
+$error-light: #ff9980;
+$error-dark: #b22a00;
+$error-contrast-text: #b22a00;
+
+$warning-main: #ffd700;
+$warning-light: #ffef33;
+$warning-dark: #c7a600;
+$warning-contrast-text: #8b0000;
+
+$info-main: #00ced1;
+$info-light: #66e6e8;
+$info-dark: #008b8b;
+$info-contrast-text: #ffffff;
+
+$success-main: #32cd32;
+$success-light: #6af76a;
+$success-dark: #1d8f1d;
+$success-contrast-text: #ffffff;
+
+$background-default: #fffaf0;
+$background-paper: #fff5e6;
+
+$text-primary: #5b3a24;
+$text-secondary: #8b4513;
+$text-disabled: #d2b48c;
+
+$action-active: #5b3a24;
+$action-hover: rgba(255, 105, 180, 0.08);
+$action-selected: rgba(255, 105, 180, 0.16);
+
+// Отвечает за рамочку пока не нажал на редактирование
+$action-disabled: #b22a00;
+
+$action-disabled-background: rgba(255, 192, 203, 0.12);
+$action-focus: rgba(0, 0, 0, 0.12);

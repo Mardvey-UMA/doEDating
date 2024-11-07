@@ -1,7 +1,10 @@
-:root {
-  --primary-color: #1976d2; /* Цвет primary из темы */
-  --secondary-color: #ff4081; /* Цвет secondary из темы */
-  --error-color: red; /* Цвет ошибки */
-  --background-color: #f4f4f4; /* Цвет фона для страниц */
-  --text-color: #333; /* Основной цвет текста */
-}
+$primary-color: #ffffff;
+$secondary-color: #ff0000;
+$error-color: red;
+$background-color: #ffffff;
+$text-color: #000000;
+$secondary-color-dark: darken($secondary-color, 15%);
+$font-size-large: 24px;
+$font-size-small: 12px;
+$border-radius: 8px;
+$box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);

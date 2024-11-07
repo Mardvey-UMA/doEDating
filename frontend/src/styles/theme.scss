@@ -1,0 +1,169 @@
+// src/styles/theme.scss
+
+@use "./variables.light" as light;
+@use "./variables.dark" as dark;
+@use "./variables.cake" as cake;
+
+body.light-theme {
+  // Primary colors
+  --primary-main: #{light.$primary-main};
+  --primary-light: #{light.$primary-light};
+  --primary-dark: #{light.$primary-dark};
+  --primary-contrast-text: #{light.$primary-contrast-text};
+
+  // Secondary colors
+  --secondary-main: #{light.$secondary-main};
+  --secondary-light: #{light.$secondary-light};
+  --secondary-dark: #{light.$secondary-dark};
+  --secondary-contrast-text: #{light.$secondary-contrast-text};
+
+  // Error colors
+  --error-main: #{light.$error-main};
+  --error-light: #{light.$error-light};
+  --error-dark: #{light.$error-dark};
+  --error-contrast-text: #{light.$error-contrast-text};
+
+  // Warning colors
+  --warning-main: #{light.$warning-main};
+  --warning-light: #{light.$warning-light};
+  --warning-dark: #{light.$warning-dark};
+  --warning-contrast-text: #{light.$warning-contrast-text};
+
+  // Info colors
+  --info-main: #{light.$info-main};
+  --info-light: #{light.$info-light};
+  --info-dark: #{light.$info-dark};
+  --info-contrast-text: #{light.$info-contrast-text};
+
+  // Success colors
+  --success-main: #{light.$success-main};
+  --success-light: #{light.$success-light};
+  --success-dark: #{light.$success-dark};
+  --success-contrast-text: #{light.$success-contrast-text};
+
+  // Background colors
+  --background-default: #{light.$background-default};
+  --background-paper: #{light.$background-paper};
+
+  // Text colors
+  --text-primary: #{light.$text-primary};
+  --text-secondary: #{light.$text-secondary};
+  --text-disabled: #{light.$text-disabled};
+
+  // Action colors
+  --action-active: #{light.$action-active};
+  --action-hover: #{light.$action-hover};
+  --action-selected: #{light.$action-selected};
+  --action-disabled: #{light.$action-disabled};
+  --action-disabled-background: #{light.$action-disabled-background};
+  --action-focus: #{light.$action-focus};
+}
+
+body.dark-theme {
+  // Primary colors
+  --primary-main: #{dark.$primary-main};
+  --primary-light: #{dark.$primary-light};
+  --primary-dark: #{dark.$primary-dark};
+  --primary-contrast-text: #{dark.$primary-contrast-text};
+
+  // Secondary colors
+  --secondary-main: #{dark.$secondary-main};
+  --secondary-light: #{dark.$secondary-light};
+  --secondary-dark: #{dark.$secondary-dark};
+  --secondary-contrast-text: #{dark.$secondary-contrast-text};
+
+  // Error colors
+  --error-main: #{dark.$error-main};
+  --error-light: #{dark.$error-light};
+  --error-dark: #{dark.$error-dark};
+  --error-contrast-text: #{dark.$error-contrast-text};
+
+  // Warning colors
+  --warning-main: #{dark.$warning-main};
+  --warning-light: #{dark.$warning-light};
+  --warning-dark: #{dark.$warning-dark};
+  --warning-contrast-text: #{dark.$warning-contrast-text};
+
+  // Info colors
+  --info-main: #{dark.$info-main};
+  --info-light: #{dark.$info-light};
+  --info-dark: #{dark.$info-dark};
+  --info-contrast-text: #{dark.$info-contrast-text};
+
+  // Success colors
+  --success-main: #{dark.$success-main};
+  --success-light: #{dark.$success-light};
+  --success-dark: #{dark.$success-dark};
+  --success-contrast-text: #{dark.$success-contrast-text};
+
+  // Background colors
+  --background-default: #{dark.$background-default};
+  --background-paper: #{dark.$background-paper};
+
+  // Text colors
+  --text-primary: #{dark.$text-primary};
+  --text-secondary: #{dark.$text-secondary};
+  --text-disabled: #{dark.$text-disabled};
+
+  // Action colors
+  --action-active: #{dark.$action-active};
+  --action-hover: #{dark.$action-hover};
+  --action-selected: #{dark.$action-selected};
+  --action-disabled: #{dark.$action-disabled};
+  --action-disabled-background: #{dark.$action-disabled-background};
+  --action-focus: #{dark.$action-focus};
+}
+
+body.cake-theme {
+  // Primary colors
+  --primary-main: #{cake.$primary-main};
+  --primary-light: #{cake.$primary-light};
+  --primary-dark: #{cake.$primary-dark};
+  --primary-contrast-text: #{cake.$primary-contrast-text};
+
+  // Secondary colors
+  --secondary-main: #{cake.$secondary-main};
+  --secondary-light: #{cake.$secondary-light};
+  --secondary-dark: #{cake.$secondary-dark};
+  --secondary-contrast-text: #{cake.$secondary-contrast-text};
+
+  // Error colors
+  --error-main: #{cake.$error-main};
+  --error-light: #{cake.$error-light};
+  --error-dark: #{cake.$error-dark};
+  --error-contrast-text: #{cake.$error-contrast-text};
+
+  // Warning colors
+  --warning-main: #{cake.$warning-main};
+  --warning-light: #{cake.$warning-light};
+  --warning-dark: #{cake.$warning-dark};
+  --warning-contrast-text: #{cake.$warning-contrast-text};
+
+  // Info colors
+  --info-main: #{cake.$info-main};
+  --info-light: #{cake.$info-light};
+  --info-dark: #{cake.$info-dark};
+  --info-contrast-text: #{cake.$info-contrast-text};
+
+  // Success colors
+  --success-main: #{cake.$success-main};
+  --success-light: #{cake.$success-light};
+  --success-dark: #{cake.$success-dark};
+  --success-contrast-text: #{cake.$success-contrast-text};
+
+  // Background colors
+  --background-default: #{cake.$background-default};
+  --background-paper: #{cake.$background-paper};
+  // Text colors
+  --text-primary: #{cake.$text-primary};
+  --text-secondary: #{cake.$text-secondary};
+  --text-disabled: #{cake.$text-disabled};
+
+  // Action colors
+  --action-active: #{cake.$action-active};
+  --action-hover: #{cake.$action-hover};
+  --action-selected: #{cake.$action-selected};
+  --action-disabled: #{cake.$action-disabled};
+  --action-disabled-background: #{cake.$action-disabled-background};
+  --action-focus: #{cake.$action-focus};
+}

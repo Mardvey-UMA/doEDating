@@ -1,0 +1,37 @@
+.photoItem {
+  position: relative;
+  width: 100%;
+  height: 10vw;
+  max-height: 100%;
+  border-radius: 10%;
+  overflow: visible;
+  box-shadow: 0 0 0.4vw var(--primary-contrast-text);
+  .deleteButton {
+    position: absolute;
+    top: -5%;
+    right: -5%;
+    color: var(--primary-contrast-text);
+    background-color: var(--primary-dark);
+    width: 1.5vw;
+    height: 1.5vw;
+    border-radius: 50%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-color: var(--primary-light);
+    }
+  }
+
+  .deleteIcon {
+    font-size: 70%;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}

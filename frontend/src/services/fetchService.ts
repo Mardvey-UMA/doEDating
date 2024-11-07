@@ -1,8 +1,8 @@
+// src/services/fetchService.ts
 import { refreshAccessToken } from "./refreshService";
+import store, { RootState } from "../store";
 
-let accessToken: string | null = localStorage.getItem("accessToken");
 let isRefreshing = false;
-
 let failedQueue: Array<{
   resolve: (token: string) => void;
   reject: (error: Error) => void;
@@ -24,9 +24,8 @@ export const fetchWithToken = async <T>(
   url: string,
   options: RequestInit = {}
 ): Promise<T | void> => {
-  if (!accessToken) {
-    accessToken = localStorage.getItem("accessToken");
-  }
+  const state: RootState = store.getState();
+  let accessToken = state.auth.token;
 
   const headers = {
     ...options.headers,
@@ -44,9 +43,9 @@ export const fetchWithToken = async <T>(
         isRefreshing = true;
 
         try {
-          const { accessToken: newToken } = await refreshAccessToken();
+          const newToken = await refreshAccessToken();
           accessToken = newToken;
-          localStorage.setItem("accessToken", newToken);
+          store.dispatch({ type: "auth/login/fulfilled", payload: newToken });
           processQueue(null, newToken);
         } catch (err) {
           processQueue(err as Error, null);

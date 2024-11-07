@@ -1,0 +1,87 @@
+[
+  {
+    "name": "Рента",
+    "age": 26,
+    "city": "Саратов",
+    "education": "СГУ",
+    "photos": [
+      "./public/images/user1_photo1.jpg",
+      "./public/images/user1_photo2.jpg",
+      "./public/images/user1_photo3.jpg"
+    ],
+    "interests": [
+      { "name": "Бизнес", "color": "#E1D1F6", "textColor": "#75509B" },
+      { "name": "Велосипед", "color": "#FFEAD6", "textColor": "#CC7A33" },
+      { "name": "Хомяки", "color": "#F6DCD1", "textColor": "#9B6650" }
+    ],
+    "aboutMe": "Штирлиц в трудные жизненные моменты мог довольствоваться малым.\n Вот только малому это не нравилось."
+  },
+  {
+    "name": "Кочерыжка",
+    "age": 29,
+    "city": "Санкт-Петербург",
+    "education": "СПбГУ",
+    "photos": [
+      "./public/images/user2_photo1.jpg",
+      "./public/images/user2_photo2.jpg",
+      "./public/images/user2_photo3.jpg"
+    ],
+    "interests": [
+      { "name": "ЗОЖ", "color": "#D1F6E3", "textColor": "#509B7F" },
+      { "name": "Автомобили", "color": "#D1D8F6", "textColor": "#50679B" },
+      { "name": "Морепродукты", "color": "#F6ECD1", "textColor": "#9B8650" }
+    ],
+    "aboutMe": "О чем мечтают наркоманы?\n Вкалывать за копейки."
+  },
+  {
+    "name": "Кайфолом",
+    "age": 24,
+    "city": "Екатеринбург",
+    "education": "УрФУ",
+    "photos": [
+      "./public/images/user3_photo1.jpg",
+      "./public/images/user3_photo2.jpg",
+      "./public/images/user3_photo3.jpg"
+    ],
+    "interests": [
+      { "name": "Саморазвитие", "color": "#D1F6E3", "textColor": "#509B7F" },
+      { "name": "Пляжи", "color": "#F6EBD1", "textColor": "#9B7F50" },
+      { "name": "Поэзия", "color": "#F6D1D8", "textColor": "#9B5057" }
+    ],
+    "aboutMe": "В дешевых учебниках по математическому анализу вместо натуральных логарифмов используются логарифмы, идентичные натуральным."
+  },
+  {
+    "name": "Франко",
+    "age": 30,
+    "city": "Казань",
+    "education": "КФУ",
+    "photos": [
+      "./public/images/user4_photo1.jpg",
+      "./public/images/user4_photo2.jpg",
+      "./public/images/user4_photo3.jpg"
+    ],
+    "interests": [
+      { "name": "Кофе", "color": "#F6ECD1", "textColor": "#9B8650" },
+      { "name": "Постмодернизм", "color": "#F6D1D8", "textColor": "#9B5057" },
+      { "name": "Психология", "color": "#D1F6E3", "textColor": "#509B7F" }
+    ],
+    "aboutMe": "Польские военные маскируют свои радиопереговоры под шум эфира."
+  },
+  {
+    "name": "Диана",
+    "age": 25,
+    "city": "Новосибирск",
+    "education": "НГУ",
+    "photos": [
+      "./public/images/user5_photo1.jpg",
+      "./public/images/user5_photo2.jpg",
+      "./public/images/user5_photo3.jpg"
+    ],
+    "interests": [
+      { "name": "Йога", "color": "#D1F6E3", "textColor": "#509B7F" },
+      { "name": "Коучинг", "color": "#E1D1F6", "textColor": "#75509B" },
+      { "name": "Кинематограф", "color": "#F6D1D8", "textColor": "#9B5057" }
+    ],
+    "aboutMe": "Приехав с ребятами на шашлыки, Инна поняла, почему она не скидывалась."
+  }
+]
