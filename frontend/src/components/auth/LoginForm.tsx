@@ -17,9 +17,8 @@ const LoginForm: React.FC = () => {
       setError("");
 
       try {
-
         await login({ username: email, password: password });
-        navigate("/home"); 
+        navigate("/home");
       } catch (err) {
         console.error("Ошибка авторизации:", err);
         setError("Ошибка авторизации. Проверьте данные и попробуйте снова.");
@@ -43,7 +42,7 @@ const LoginForm: React.FC = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
       {error && <p className={styles.error}>{error}</p>}
-      <Button variant="contained" onClick={handleLogin}>
+      <Button className={styles.loginButton} onClick={handleLogin}>
         Войти
       </Button>
       <a href="http://localhost/api/auth/oauth2/vk">

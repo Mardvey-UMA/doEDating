@@ -5,64 +5,57 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--background-color);
-  color: var(--text-color);
+  background-color: $background-color;
+  color: $text-color;
 }
 
 .formContainer {
   width: 100%;
   max-height: 800px;
   min-height: 100px;
-  max-width: 400px; /* Ограничиваем ширину контейнера */
+  max-width: 400px;
   padding: 40px;
-  background-color: #fff;
+  background-color: $background-color;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column; /* Кнопки и поля будут в столбик */
-  gap: 10px; /* Отступы между элементами */
-  margin: 20px; /* Добавляем отступы слева и справа, если ширина экрана меньше */
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px;
   h1 {
-    font-size: 24px; /* Размер шрифта */
-    color: var(--primary-color); /* Цвет текста из темы */
-    margin-bottom: 20px; /* Отступ снизу */
-    text-align: center; /* Выравнивание по центру */
+    font-size: 24px;
+    color: $text-color;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .loginButton {
+    background-color: $secondary-color;
+    color: #fff;
+
+    &:hover {
+      background-color: $secondary-color-dark;
+    }
+  }
+
+  .registerButton {
+    background-color: $secondary-color;
+    color: #ffffff;
+
+    &:hover {
+      background-color: $secondary-color-dark;
+    }
+  }
+  .switchButton {
+    color: $secondary-color-dark;
   }
 }
 
 .inputField {
-  margin-bottom: 2px; /* Отступ между полями */
+  margin-bottom: 2px;
 }
 
 .error {
-  color: var(--error-color); /* Сообщение об ошибке */
+  color: $text-color;
   font-size: 12px;
   margin-top: -10px;
-}
-
-/* Кнопка для входа через ВКонтакте */
-.vkButton {
-  background-color: var(--primary-color);
-  color: #fff;
-
-  &:hover {
-    background-color: #1565c0;
-  }
-}
-.loginButton {
-  background-color: var(--primary-color);
-  color: #fff;
-
-  &:hover {
-    background-color: #1565c0;
-  }
-}
-/* Кнопка для регистрации */
-.registerButton {
-  background-color: var(--secondary-color);
-  color: #fff;
-
-  &:hover {
-    background-color: #e91e63;
-  }
 }

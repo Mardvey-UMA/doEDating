@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage"; // Добавляем импорт
 import VkAuthCallback from "./components/vkElements/VkAuthRedirect";
+import UserProfileForm from "./components/UserProfileForm";
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -15,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/" element={<LoginPage />} />
+          <Route path="/" element={<UserProfileForm />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/login/oauth2/callback" element={<VkAuthCallback />} />
         </Routes>

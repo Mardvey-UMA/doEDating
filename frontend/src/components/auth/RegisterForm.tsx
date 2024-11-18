@@ -27,7 +27,7 @@ const RegisterForm: React.FC = () => {
           first_name: firstName,
           last_name: lastName,
         });
-        navigate("/login"); 
+        navigate("/login");
       } catch (err) {
         console.error("Ошибка регистрации:", err);
         setError("Ошибка регистрации. Попробуйте снова.");
@@ -64,11 +64,7 @@ const RegisterForm: React.FC = () => {
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       {error && <p className={styles.error}>{error}</p>}
-      <Button
-        variant="contained"
-        className={styles.registerButton}
-        onClick={handleRegister}
-      >
+      <Button className={styles.registerButton} onClick={handleRegister}>
         Зарегистрироваться
       </Button>
       <a href="http://localhost/api/auth/oauth2/vk">
