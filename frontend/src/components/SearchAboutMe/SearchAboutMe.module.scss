@@ -1,0 +1,25 @@
+/* src/components/SearchAboutMe/SearchAboutMe.module.scss */
+.container {
+  padding: 16px;
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.icon {
+  color: var(--primary-color);
+  margin-right: 8px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.text {
+  line-height: 1.5;
+}

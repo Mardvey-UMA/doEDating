@@ -1,0 +1,10 @@
+/* src/components/SearchActions/SearchActionsContainer.module.scss */
+
+.actionsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: top;
+  height: 100%;
+  border-radius: 8px;
+  padding: 10px;
+}

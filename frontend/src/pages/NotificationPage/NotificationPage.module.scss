@@ -1,0 +1,19 @@
+/* src/pages/NotificationPage/NotificationPage.module.scss */
+.container {
+  padding: 20px;
+  text-align: center;
+}
+
+.header {
+  color: #ff9800;
+  margin-bottom: 20px;
+}
+.sidebar {
+  // сайдбар
+  width: 220px;
+  position: fixed;
+  top: 120px;
+  left: 0;
+  height: calc(100vh - 120px);
+  background-color: #fff;
+}

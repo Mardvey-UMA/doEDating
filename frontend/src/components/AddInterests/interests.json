@@ -1,0 +1,343 @@
+{
+  "categories": {
+    "Хобби и Увлечения": {
+      "items": [
+        { "name": "Рисование", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Фотография", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Видеоигры", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Чтение", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Писательство", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Кулинария", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Рукоделие", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Вязание", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Садоводство", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Рыбалка", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Охота", "color": "#D1E9F6", "textColor": "#50819B" },
+        {
+          "name": "Коллекционирование",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        { "name": "Музыка", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Вокал", "color": "#D1E9F6", "textColor": "#50819B" },
+        {
+          "name": "Игра на гитаре",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "name": "Игра на пианино",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        { "name": "Виноделие", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Йога", "color": "#D1E9F6", "textColor": "#50819B" },
+        { "name": "Танцы", "color": "#D1E9F6", "textColor": "#50819B" }
+      ]
+    },
+    "Спорт и Активности": {
+      "items": [
+        { "name": "Бег", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Велосипед", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Плавание", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Фитнес", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Бокс", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Серфинг", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Футбол", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Баскетбол", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Волейбол", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Теннис", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        {
+          "name": "Катание на лыжах",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        { "name": "Скалолазание", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Паркур", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Туризм", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Альпинизм", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Гольф", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Пилатес", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        { "name": "Сноуборд", "color": "#FFEAD6", "textColor": "#CC7A33" },
+        {
+          "name": "Катание на коньках",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        { "name": "Гребля", "color": "#FFEAD6", "textColor": "#CC7A33" }
+      ]
+    },
+    "Кино и ТВ": {
+      "items": [
+        {
+          "name": "Документальные фильмы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        { "name": "Триллеры", "color": "#E9D1F6", "textColor": "#81509B" },
+        { "name": "Фантастика", "color": "#E9D1F6", "textColor": "#81509B" },
+        { "name": "Комедии", "color": "#E9D1F6", "textColor": "#81509B" },
+        { "name": "Драмы", "color": "#E9D1F6", "textColor": "#81509B" },
+        { "name": "Боевики", "color": "#E9D1F6", "textColor": "#81509B" },
+        { "name": "Аниме", "color": "#E9D1F6", "textColor": "#81509B" },
+        { "name": "Сериалы", "color": "#E9D1F6", "textColor": "#81509B" },
+        {
+          "name": "Короткометражки",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        { "name": "Мультфильмы", "color": "#E9D1F6", "textColor": "#81509B" },
+        {
+          "name": "Биографические фильмы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "name": "Исторические фильмы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "name": "Музыкальные шоу",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        }
+      ]
+    },
+    "Технологии и Наука": {
+      "items": [
+        { "name": "Робототехника", "color": "#D1D8F6", "textColor": "#50679B" },
+        {
+          "name": "Искусственный интеллект",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "name": "Виртуальная реальность",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        { "name": "Космос", "color": "#D1D8F6", "textColor": "#50679B" },
+        {
+          "name": "Программирование",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        { "name": "Биотехнологии", "color": "#D1D8F6", "textColor": "#50679B" },
+        { "name": "Астрономия", "color": "#D1D8F6", "textColor": "#50679B" },
+        {
+          "name": "Нанотехнологии",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        { "name": "Гаджеты", "color": "#D1D8F6", "textColor": "#50679B" },
+        {
+          "name": "Научные открытия",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        { "name": "Инженерия", "color": "#D1D8F6", "textColor": "#50679B" },
+        { "name": "Автомобили", "color": "#D1D8F6", "textColor": "#50679B" },
+        { "name": "Авиация", "color": "#D1D8F6", "textColor": "#50679B" },
+        { "name": "Видеоблоги", "color": "#D1D8F6", "textColor": "#50679B" }
+      ]
+    },
+    "Путешествия и Культура": {
+      "items": [
+        { "name": "Путешествия", "color": "#F6EBD1", "textColor": "#9B7F50" },
+        {
+          "name": "Экзотические страны",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "name": "Кулинарные туры",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "name": "Автопутешествия",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        { "name": "Кемпинг", "color": "#F6EBD1", "textColor": "#9B7F50" },
+        {
+          "name": "Путешествия по Европе",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "name": "Национальные парки",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        { "name": "Горы", "color": "#F6EBD1", "textColor": "#9B7F50" },
+        { "name": "Пляжи", "color": "#F6EBD1", "textColor": "#9B7F50" },
+        { "name": "Города", "color": "#F6EBD1", "textColor": "#9B7F50" },
+        {
+          "name": "Культура разных стран",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        { "name": "Архитектура", "color": "#F6EBD1", "textColor": "#9B7F50" },
+        { "name": "Языки", "color": "#F6EBD1", "textColor": "#9B7F50" }
+      ]
+    },
+    "Литература и Искусство": {
+      "items": [
+        { "name": "Поэзия", "color": "#F6D1D8", "textColor": "#9B5057" },
+        { "name": "Литература", "color": "#F6D1D8", "textColor": "#9B5057" },
+        {
+          "name": "Классическая музыка",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        { "name": "Скульптура", "color": "#F6D1D8", "textColor": "#9B5057" },
+        { "name": "Театр", "color": "#F6D1D8", "textColor": "#9B5057" },
+        { "name": "Кинематограф", "color": "#F6D1D8", "textColor": "#9B5057" },
+        {
+          "name": "Искусствоведение",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        { "name": "Модернизм", "color": "#F6D1D8", "textColor": "#9B5057" },
+        { "name": "Постмодернизм", "color": "#F6D1D8", "textColor": "#9B5057" },
+        { "name": "Барокко", "color": "#F6D1D8", "textColor": "#9B5057" },
+        { "name": "Импрессионизм", "color": "#F6D1D8", "textColor": "#9B5057" },
+        { "name": "Граффити", "color": "#F6D1D8", "textColor": "#9B5057" },
+        {
+          "name": "Художественные галереи",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        }
+      ]
+    },
+    "Здоровье и Образ жизни": {
+      "items": [
+        {
+          "name": "Здоровое питание",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "name": "Вегетарианство",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        { "name": "Веганство", "color": "#D1F6E3", "textColor": "#509B7F" },
+        { "name": "Медитация", "color": "#D1F6E3", "textColor": "#509B7F" },
+        { "name": "Психология", "color": "#D1F6E3", "textColor": "#509B7F" },
+        { "name": "Осознанность", "color": "#D1F6E3", "textColor": "#509B7F" },
+        { "name": "Кинезитерапия", "color": "#D1F6E3", "textColor": "#509B7F" },
+        { "name": "ЗОЖ", "color": "#D1F6E3", "textColor": "#509B7F" },
+        { "name": "Диетология", "color": "#D1F6E3", "textColor": "#509B7F" },
+        { "name": "Сон", "color": "#D1F6E3", "textColor": "#509B7F" },
+        { "name": "Йога", "color": "#D1F6E3", "textColor": "#509B7F" },
+        {
+          "name": "Альтернативная медицина",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        { "name": "Саморазвитие", "color": "#D1F6E3", "textColor": "#509B7F" }
+      ]
+    },
+    "Еда и Напитки": {
+      "items": [
+        { "name": "Вино", "color": "#F6ECD1", "textColor": "#9B8650" },
+        { "name": "Кофе", "color": "#F6ECD1", "textColor": "#9B8650" },
+        { "name": "Чай", "color": "#F6ECD1", "textColor": "#9B8650" },
+        { "name": "Выпечка", "color": "#F6ECD1", "textColor": "#9B8650" },
+        { "name": "Сыр", "color": "#F6ECD1", "textColor": "#9B8650" },
+        {
+          "name": "Вегетарианские блюда",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        { "name": "Мясные блюда", "color": "#F6ECD1", "textColor": "#9B8650" },
+        {
+          "name": "Молекулярная кухня",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        { "name": "Коктейли", "color": "#F6ECD1", "textColor": "#9B8650" },
+        {
+          "name": "Экзотические блюда",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        { "name": "Морепродукты", "color": "#F6ECD1", "textColor": "#9B8650" },
+        { "name": "Уличная еда", "color": "#F6ECD1", "textColor": "#9B8650" },
+        {
+          "name": "Гастрономические фестивали",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        }
+      ]
+    },
+    "Домашние животные": {
+      "items": [
+        { "name": "Кошки", "color": "#F6DCD1", "textColor": "#9B6650" },
+        { "name": "Собаки", "color": "#F6DCD1", "textColor": "#9B6650" },
+        { "name": "Лошади", "color": "#F6DCD1", "textColor": "#9B6650" },
+        { "name": "Рыбки", "color": "#F6DCD1", "textColor": "#9B6650" },
+        { "name": "Рептилии", "color": "#F6DCD1", "textColor": "#9B6650" },
+        { "name": "Попугаи", "color": "#F6DCD1", "textColor": "#9B6650" },
+        { "name": "Кролики", "color": "#F6DCD1", "textColor": "#9B6650" },
+        { "name": "Хомяки", "color": "#F6DCD1", "textColor": "#9B6650" },
+        {
+          "name": "Экзотические питомцы",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "name": "Фермерские животные",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        { "name": "Аквариумистика", "color": "#F6DCD1", "textColor": "#9B6650" }
+      ]
+    },
+    "Образование и Личностное развитие": {
+      "items": [
+        {
+          "name": "Иностранные языки",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "name": "Самообразование",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        { "name": "Лидерство", "color": "#E1D1F6", "textColor": "#75509B" },
+        { "name": "Креативность", "color": "#E1D1F6", "textColor": "#75509B" },
+        { "name": "Бизнес", "color": "#E1D1F6", "textColor": "#75509B" },
+        { "name": "Маркетинг", "color": "#E1D1F6", "textColor": "#75509B" },
+        {
+          "name": "Личностный рост",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        { "name": "Психология", "color": "#E1D1F6", "textColor": "#75509B" },
+        { "name": "Карьера", "color": "#E1D1F6", "textColor": "#75509B" },
+        {
+          "name": "Ораторское искусство",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "name": "Публичные выступления",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "name": "Тайм-менеджмент",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        { "name": "Коучинг", "color": "#E1D1F6", "textColor": "#75509B" },
+        { "name": "Лайфхаки", "color": "#E1D1F6", "textColor": "#75509B" }
+      ]
+    }
+  }
+}
