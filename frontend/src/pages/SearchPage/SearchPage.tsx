@@ -26,6 +26,7 @@ const SearchPage: React.FC = () => {
       <Box className={styles.rightColumn}>
         <SearchInterestsContainer />
         <SearchAboutMeContainer />
+        <Box></Box>
       </Box>
     </Box>
   );
