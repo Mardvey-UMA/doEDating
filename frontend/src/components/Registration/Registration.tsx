@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import InputField from "../InputField";
 import { Button } from "@mui/material";
-import VkIdButton from "../VkElements/VkButton";
 import styles from "./Registration.module.scss";
 import { RegistrationProps } from "./Registration.type.ts";
+import VkIdButton from "../VkElements/VkButton.tsx";
 
 const Registration: React.FC<RegistrationProps> = ({
   onRegister,

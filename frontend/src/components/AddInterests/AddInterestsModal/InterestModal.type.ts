@@ -1,4 +1,5 @@
 export interface Interest {
+  id: number;
   name: string;
   color: string;
   textColor: string;
@@ -15,6 +16,6 @@ export interface InterestsJSON {
 export interface InterestModalProps {
   open: boolean;
   onClose: () => void;
-  onSave: (selected: Interest[]) => void;
-  selectedInterests: Interest[];
+  onSave: (selected: number[]) => void;
+  selectedInterests: number[]; // Список id вместо полного объекта
 }

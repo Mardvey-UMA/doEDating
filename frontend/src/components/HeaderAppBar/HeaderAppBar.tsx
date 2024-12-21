@@ -37,12 +37,12 @@ const HeaderAppBar: React.FC = () => {
       <Toolbar className={styles.toolbar}>
         <Box className={styles.logoContainer}>
           <Box className={styles.logo}>
-            <Typography variant="h6" className={styles.logoText}>
+            <Typography variant="body1" className={styles.logoText}>
               DD
             </Typography>
           </Box>
-          <Typography variant="h6" noWrap className={styles.title}>
-            doedating
+          <Typography variant="h4" noWrap className={styles.title}>
+            Kafka Dating
           </Typography>
         </Box>
 
@@ -67,7 +67,7 @@ const HeaderAppBar: React.FC = () => {
             Светлая
           </MenuItem>
           <MenuItem onClick={() => handleThemeChange("dark")}>Тёмная</MenuItem>
-          <MenuItem onClick={() => handleThemeChange("cake")}>Кекс</MenuItem>
+          <MenuItem onClick={() => handleThemeChange("cake")}>Малина</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>

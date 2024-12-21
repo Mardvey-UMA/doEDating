@@ -1,26 +1,27 @@
 //@import "../../styles/variables.module.scss";
 
 .appBar {
-  position: fixed !important;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 120px;
-  background-color: var(--text-primary) !important;
+  position: static;
+  font-style: normal;
+  background-color: var(--primary-dark) !important;
   color: var(--background-default) !important;
+  max-width: 100%;
+  overflow: auto;
   .themeButton {
-    font-size: 1.5rem !important;
+    font-size: 1.5rem;
     color: var(--secondary-contrast-text) !important;
-    margin-left: 45px !important;
+    margin-left: 45px;
     .themeButtonText {
       font-size: 100%;
       color: var(--secondary-contrast-text) !important;
     }
   }
+  @media (max-width: 700) {
+      width: 100% !important;
+  }
 }
 
 .toolbar {
-  display: flex;
   justify-content: space-between;
   height: 100%;
 }
@@ -31,24 +32,23 @@
 }
 
 .logo {
-  background-color: var(--secondary-main);
+  background-color: var(--primary-light);
   color: var(--secondary-contrast-text);
   width: 50px;
   height: 50px;
   display: flex;
+  padding: 10%;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  margin-right: 16px;
-}
-
-.title {
-  font-size: 32px !important;
+  margin-right: 10px;
+  font-size: large;
+  .logoText{
+    font-size: 18pt;
+  }
 }
 
 .iconsContainer {
-  display: flex;
   align-items: center;
-  position: fixed;
   right: 120px;
 }

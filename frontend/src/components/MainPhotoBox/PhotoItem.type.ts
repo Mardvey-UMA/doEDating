@@ -1,5 +1,7 @@
 export interface PhotoItemProps {
-  src: string;
+  userId: number;
+  photoId: string;
   onDelete: () => void;
-  isExiting?: boolean;
+  isLoading: boolean;
+  isExiting: boolean;
 }

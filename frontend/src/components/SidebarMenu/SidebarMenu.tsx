@@ -2,46 +2,38 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
+//import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import SearchIcon from "@mui/icons-material/Search";
-import MobileFriendlyIcon from "@mui/icons-material/MobileFriendly";
-import SettingsIcon from "@mui/icons-material/Settings";
-
+import SearchIcon from "@mui/icons-material/StarRate";//import SettingsIcon from "@mui/icons-material/StarRate";
 import styles from "./SidebarMenu.module.scss";
 import { SidebarMenuProps } from "./SidebarMenu.type.ts";
 
 const menuItems = [
   {
-    path: "/",
+    path: "/myprofile",
     label: "Профиль",
     icon: <AccountCircleIcon className={styles.icon} />,
   },
-  {
-    path: "/chat",
-    label: "Сообщения",
-    icon: <MailIcon className={styles.icon} />,
-  },
+  // {
+  //   path: "/chat",
+  //   label: "Сообщения",
+  //   icon: <MailIcon className={styles.icon} />,
+  // },
   {
     path: "/notifications",
-    label: "Уведомления",
+    label: "События",
     icon: <NotificationsIcon className={styles.icon} />,
   },
   {
     path: "/search",
-    label: "Поиск",
+    label: "Рекомендации",
     icon: <SearchIcon className={styles.icon} />,
   },
-  {
-    path: "/matches",
-    label: "Лайки",
-    icon: <MobileFriendlyIcon className={styles.icon} />,
-  },
-  {
-    path: "/settings",
-    label: "Настройки",
-    icon: <SettingsIcon className={styles.icon} />,
-  },
+  // {
+  //   path: "/settings",
+  //   label: "Настройки",
+  //   icon: <SettingsIcon className={styles.icon} />,
+  // },
 ];
 
 const SidebarMenu: React.FC<SidebarMenuProps> = () => {

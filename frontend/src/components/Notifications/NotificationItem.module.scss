@@ -1,0 +1,61 @@
+//@import './variables.scss';
+
+.container {
+  display: flex;
+  padding: 4px;
+  border-radius: 12px;
+  &:hover {
+    box-shadow: 0 6px 6px rgb(0 0 0 / 0.1);
+  }
+}
+
+.match {
+  background-color: var(--secondary-main);
+}
+
+.youliked {
+  background-color: var(--secondary-main);
+}
+
+.liked {
+    background-color: var(--secondary-main);
+}
+
+.icon {
+  padding: 10px;
+}
+
+.content {
+  margin-left: 3px;
+}
+
+.title {
+  font-size: 22pt;
+  font-style: light;
+  color: var(--primary-main);
+}
+
+.message {
+  font-size: 14pt;
+  color: var(--primary-main);
+}
+
+.time {
+  font-size: 14pt;
+  color: var(--primary-main);
+}
+
+.dismissButton {
+  margin-left: 4px;
+  flex-shrink: 0;
+  display: inline-flex;
+  color: var(--secondary-dark);
+
+  &:hover {
+    color: var(--secondary-dark);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
