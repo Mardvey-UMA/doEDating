@@ -27,8 +27,6 @@ const RegistrationContainer: React.FC = () => {
     );
     if (register.fulfilled.match(resultAction)) {
       navigate("/login");
-    } else {
-      // Ошибка уже обработана в состоянии authState.error
     }
   };
 

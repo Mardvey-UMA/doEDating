@@ -7,16 +7,14 @@ import { login } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const LoginContainer: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>(); // Используем типизированный dispatch
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const authState = useSelector((state: RootState) => state.auth);
 
   const handleLogin = async (email: string, password: string) => {
-    const resultAction = await dispatch(login({ username: email, password }));
+    const resultAction = await dispatch(login({ username: email, password: password }));
     if (login.fulfilled.match(resultAction)) {
-      navigate("/admin");
-    } else {
-      // Ошибка уже обработана в состоянии authState.error
+      navigate("/myprofile");
     }
   };
 
