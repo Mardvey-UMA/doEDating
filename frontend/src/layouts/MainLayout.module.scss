@@ -1,15 +1,12 @@
 .mainLayout {
   display: grid;
-  grid-template-columns: 220px 1fr 20px;
-  grid-template-rows: 150px 1fr;
-  height: 100vh;
-  overflow: hidden;
+  grid-template-columns: 17% 1fr;
+  grid-template-rows: 2% ;
+  //overflow: hidden;
   border-radius: 2%;
 }
 .mainContent {
   grid-column: 2 / span 1;
   grid-row: 2 / span 1;
-  margin: 10px;
-  overflow: hidden;
   border-radius: 2%;
 }

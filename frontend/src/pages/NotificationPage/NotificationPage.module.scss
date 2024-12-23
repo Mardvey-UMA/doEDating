@@ -1,19 +1,35 @@
 /* src/pages/NotificationPage/NotificationPage.module.scss */
-.container {
-  padding: 20px;
-  text-align: center;
+
+.pageContainer {
+  height: 80%;
+  background-color: var(--secondary-light);
+  padding: 8px 0px;
+  border-radius: 12px;
+}
+
+.card {
+  background-color: var(--secondary-dark);
+  border-radius: 8px;
+  padding: 1%;
+  box-shadow: 2px 2px 4px #4d4d4d;
 }
 
 .header {
-  color: #ff9800;
-  margin-bottom: 20px;
+  display: flex;
 }
-.sidebar {
-  // сайдбар
-  width: 220px;
-  position: fixed;
-  top: 120px;
-  left: 0;
-  height: calc(100vh - 120px);
-  background-color: #fff;
+
+.badge {
+  background-color: var(--secondary-main);
+  color: var(--secondary-light);
+  font-size: 14pt;
+  padding: 5px;
+  border-radius: 8px;
+  height: 40%;
+  margin-bottom: 1%;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 12px 0px;
+  color: var(--secondary-light);
 }
