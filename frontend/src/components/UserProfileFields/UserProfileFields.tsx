@@ -22,6 +22,7 @@ const UserProfileFields: React.FC<UserProfileFieldsProps> = ({
   city,
   job,
   education,
+  telegramId,
   onEmailChange,
   onFirstNameChange,
   onLastNameChange,
@@ -30,33 +31,36 @@ const UserProfileFields: React.FC<UserProfileFieldsProps> = ({
   onCityChange,
   onJobChange,
   onEducationChange,
+  onTelegramIdChange,
 }) => {
+  //console.log("Тип данных birthDate:", typeof birthDate);
+  //console.log("Значение birthDate:", birthDate);
+
+  const correctedBirthDate = birthDate ? new Date(birthDate) : new Date();
+
   return (
     <Box className={styles.formContainer}>
       <InputFieldButton
         type="text"
         label="Email"
         value={email}
-        //icon={<Mail />}
         onChange={(e) => onEmailChange(e.target.value)}
       />
       <InputFieldButton
         type="text"
         label="Имя"
         value={firstName}
-        //icon={<Person />}
         onChange={(e) => onFirstNameChange(e.target.value)}
       />
       <InputFieldButton
         type="text"
         label="Фамилия"
         value={lastName}
-        //icon={<Person />}
         onChange={(e) => onLastNameChange(e.target.value)}
       />
 
       <Box>
-        <DateField value={birthDate} onChange={onBirthDateChange} />
+        <DateField value={correctedBirthDate} onChange={onBirthDateChange} />
       </Box>
 
       <Box>
@@ -86,6 +90,12 @@ const UserProfileFields: React.FC<UserProfileFieldsProps> = ({
         value={education}
         //icon={<Bookmark />}
         onChange={(e) => onEducationChange(e.target.value)}
+      />
+      <InputFieldButton
+        type="text"
+        label="Telegram ID"
+        value={telegramId} 
+        onChange={(e) => onTelegramIdChange(e.target.value)} 
       />
     </Box>
   );

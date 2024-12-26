@@ -1,0 +1,9 @@
+rootProject.name = 'doedating'
+
+includeBuild 'eureka-server'
+
+includeBuild 'auth-service'
+
+includeBuild 'user-service'
+
+includeBuild 'api-gateway'

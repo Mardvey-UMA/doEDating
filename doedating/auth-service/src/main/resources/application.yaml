@@ -1,0 +1,53 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: auth-service
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5430/auth_db
+    username: postgres
+    password: postgres
+  kafka:
+    bootstrap-servers: "kafka:9092"
+  security:
+    oauth2:
+      client:
+        registration:
+          vk:
+            clientName: vk
+            clientId: 52691997
+            clientSecret: CzlOW0XkMynQwqMzpjQH
+            redirect-uri: http://localhost/api/auth/login/oauth2/code/vk
+            authorizationGrantType: authorization_code
+            clientAuthenticationMethod: client_secret_post
+            scope:
+              - email
+              - profile
+            provider: vk
+        provider:
+          vk:
+            authorizationUri: https://oauth.vk.com/authorize?v=199
+            tokenUri: https://oauth.vk.com/access_token
+            userInfoUri: https://api.vk.com/method/users.get?v=199
+            userNameAttribute: response
+
+openapi:
+  service:
+    title: auth-service doc
+    version: 1.0.0
+    url: http://localhost:80
+
+jwt:
+  secret: b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e
+  expiration: 60000
+  issuer: doedating #wordle
+
+front:
+  redirect-uri: http://localhost:3000/login/oauth2/callback?access_token=%s&access_expires_at=%d
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/

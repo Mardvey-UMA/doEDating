@@ -1,15 +1,15 @@
-// src/components/SaveProfileButton/SaveProfileButton.tsx
+// SaveProfileButton.tsx
 import React from "react";
 import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { updateUser } from "../../services/userService";
 import styles from "./SaveProfileButton.module.scss";
 
 const SaveProfileButton: React.FC = () => {
   const userProfile = useSelector((state: RootState) => state.user);
 
   const isProfileComplete = () => {
-    // Проверка обязательных полей пользователя
     const requiredFields = [
       "email",
       "firstName",
@@ -20,25 +20,45 @@ const SaveProfileButton: React.FC = () => {
       "job",
       "education",
       "aboutMe",
+      "selectedInterests",
+      "telegramId",
     ];
-
     const hasRequiredFields = requiredFields.every((field) =>
       Boolean(userProfile[field as keyof typeof userProfile])
     );
-
-    // Проверка на минимум 3 интереса и хотя бы одно фото
     const hasEnoughInterests = userProfile.selectedInterests.length >= 3;
     const hasPhoto = userProfile.photos.length > 0;
 
     return hasRequiredFields && hasEnoughInterests && hasPhoto;
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+
     if (isProfileComplete()) {
-      console.log(
-        "Профиль пользователя:",
-        JSON.stringify(userProfile, null, 2)
-      );
+      try {
+        await updateUser({
+          email: userProfile.email,
+          first_name: userProfile.firstName,
+          last_name: userProfile.lastName,
+          birth_date: userProfile.birthDate,
+          gender: userProfile.gender,
+          city: userProfile.city,
+          job: userProfile.job,
+          education: userProfile.education,
+          telegram_id: userProfile.telegramId,
+          about_me: userProfile.aboutMe,
+          selected_interests: userProfile.selectedInterests,
+          photos: userProfile.photos,
+        });
+        console.log("Профиль пользователя успешно обновлен");
+        console.log(
+          userProfile.birthDate,
+          userProfile.aboutMe,
+          userProfile.selectedInterests
+        );
+      } catch (error) {
+        console.error("Ошибка при обновлении профиля пользователя:", error);
+      }
     } else {
       alert(
         "Заполните все поля, выберите хотя бы 3 интереса и добавьте хотя бы одно фото."

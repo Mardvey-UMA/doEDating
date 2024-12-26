@@ -17,6 +17,28 @@
 
 .rightColumn {
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 0.5fr;
   gap: 10px;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 50vh; 
+}
+
+.MuiCircularProgress-root {
+  color: var(--primary-light) !important;
+  width: 60px; 
+  height: 60px; 
+  
+  .MuiCircularProgress-svg {
+    stroke-width: 6px; 
+  }
+
+  position: absolute; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

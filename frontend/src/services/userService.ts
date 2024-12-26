@@ -1,8 +1,12 @@
-import { User, UserResponse } from "./userService.type.ts";
+import {
+  User,
+  UserResponse,
+  UserInfo,
+  UserResponseInfo,
+} from "./userService.type.ts";
 
 import { fetchWithToken } from "./fetchService";
 
-// Функция для получения списка пользователей
 export const fetchUsers = async (): Promise<User[]> => {
   try {
     const response = await fetchWithToken<UserResponse[]>(`/api/users`, {
@@ -26,19 +30,66 @@ export const fetchUsers = async (): Promise<User[]> => {
     throw new Error("Ошибка получения списка пользователей");
   }
 };
+export const uploadUserPhoto = async (
+  file: File,
+): Promise<string | null> => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetchWithToken<{ photo_url?: string; error?: string }>(
+    `/api/users/photo`,
+    {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    }
+  );
+
+  if (!response) {
+    throw new Error("Ошибка при загрузке фото");
+  }
+
+  if (response.error) {
+    alert(response.error);
+    return null;
+  }
+
+  return response.photo_url || null;
+};
+
+export const deleteUserPhoto = async (
+  filename: string
+): Promise<void> => {
+  try {
+    await fetchWithToken(`/api/users/photo/${filename}`, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error("Ошибка при удалении фотографии на сервере:", error);
+    throw new Error("Не удалось удалить фотографию на сервере");
+  }
+};
 
 // Функция для обновления данных пользователя
 export const updateUser = async (
-  id: number,
   updatedFields: Partial<{
+    email: string;
     first_name: string;
     last_name: string;
-    username: string;
-    password: string;
+    birth_date: Date | null;
+    gender: string;
+    city: string;
+    job: string;
+    education: string;
+    about_me: string;
+    selected_interests: number[];
+    photos: string[];
+    telegram_id: string;
+    theme: string;
   }>
-): Promise<User> => {
+): Promise<void> => {
   try {
-    const response = await fetchWithToken<User>(`/api/users/${id}`, {
+    const response = await fetchWithToken(`/api/users`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFields),
@@ -48,16 +99,16 @@ export const updateUser = async (
       throw new Error("Ответ от сервера пуст.");
     }
 
-    return response;
+    console.log("Профиль пользователя успешно обновлен на сервере.");
   } catch (error) {
     console.error("Ошибка обновления пользователя:", error);
-    throw new Error("Ошибка обновления пользователя");
+    throw new Error("Ошибка обновления профиля пользователя");
   }
 };
 // Функция для удаления пользователя
 export const deleteUser = async (id: number): Promise<void> => {
   try {
-    await fetchWithToken<void>(`/api/users/${id}`, {
+    await fetchWithToken<void>(`/api/users/`, {
       method: "DELETE",
     });
 
@@ -93,22 +144,35 @@ export const fetchUserById = async (id: number): Promise<User> => {
   }
 };
 
-// Функция для получения информации о текущем пользователе
-export const fetchUserInfo = async (): Promise<User> => {
+// Функция для получения полной информации о текущем пользователе
+export const fetchUserInfo = async (): Promise<UserInfo> => {
   try {
-    const response = await fetchWithToken<UserResponse>(`/api/users/info`, {
+    const response = await fetchWithToken<UserResponseInfo>(`/api/users/info`, {
       method: "GET",
     });
-
+    console.log(response);
     if (!response) {
       throw new Error("Не удалось получить информацию о пользователе");
     }
 
-    const user: User = {
+    // Преобразуем `UserResponseInfo` в `UserInfo`
+    const user: UserInfo = {
       id: response.id,
       username: response.username,
-      first_name: response.first_name,
-      last_name: response.last_name,
+      firstName: response.first_name,
+      lastName: response.last_name,
+      email: response.email,
+      birthDate: response.birth_date,
+      gender: response.gender,
+      city: response.city,
+      job: response.job,
+      education: response.education,
+      aboutMe: response.about_me,
+      selectedInterests: response.selected_interests,
+      photos: response.photos,
+      telegramId: response.telegram_id,
+      chatId: response.chat_id,
+      theme: response.theme
     };
 
     return user;

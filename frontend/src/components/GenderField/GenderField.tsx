@@ -10,19 +10,19 @@ const GenderField: React.FC<GenderFieldProps> = ({ value, onChange }) => {
         component="legend"
         className={styles.label}
         sx={{
-          color: "var(--error-contrast-text)", // Устанавливаем цвет текста
+          color: "var(--error-contrast-text)", 
         }}
       >
         Пол
       </FormLabel>
       <RadioGroup row value={value} onChange={onChange}>
         <FormControlLabel
-          value="Мужской"
+          value="MALE"
           control={<Radio color="secondary" className={styles.radio} />}
           label="Мужской"
         />
         <FormControlLabel
-          value="Женский"
+          value="FEMALE"
           control={<Radio color="secondary" className={styles.radio} />}
           label="Женский"
         />

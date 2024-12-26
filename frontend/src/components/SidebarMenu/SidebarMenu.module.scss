@@ -1,10 +1,10 @@
 .sidebarMenu {
-  position: fixed;
-  top: 250px;
+  position: static;
+  top: 13%;
   display: flex;
   flex-direction: column;
-  width: 240px;
-  padding: 20px;
+  width: 50%;
+  padding: 5%;
 }
 
 .menuItem {
@@ -20,13 +20,20 @@
   margin-right: 10px;
 }
 
-.icon {
-  font-size: 30px;
+.label{
+  @media (min-width: 576px) and (max-width: 768px) {
+    font-size: 0pt;
+  }
 }
 
-.label {
-  font-size: 20px;
-  font-weight: normal;
+.label:not(:active){
+  font-size: 70%;
+  @media (min-width: 0px) and (max-width: 818px) {
+    font-size: 0%;
+  }
+  @media (min-width: 819px) {
+    font-size: 90%;
+  }
 }
 
 .active {
@@ -38,5 +45,15 @@
 
   .label {
     font-weight: bold;
+    @media screen {
+      font-size: 80%;
+    }
+    @media (min-width: 0px) and (max-width: 818px) {
+      font-size: 0%;
+    }
+    @media (min-width: 819px) {
+      font-size: 110%;
+    }
   }
 }
+

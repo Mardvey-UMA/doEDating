@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, Chip, Typography } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
-import { Interest } from "../../store/userSlice";
+import { Interest } from "../../store/searchSlice";
 import styles from "./SearchInterests.module.scss";
 import ScrollBox from "../ScrollBox";
 

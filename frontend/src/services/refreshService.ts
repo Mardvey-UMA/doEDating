@@ -2,7 +2,7 @@
 import store from "../store";
 
 export const refreshAccessToken = async (): Promise<string> => {
-  const response = await fetch("/api/auth/refresh", {
+  const response = await fetch(`/api/auth/refresh`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     credentials: "include",
@@ -25,7 +25,6 @@ export const refreshAccessToken = async (): Promise<string> => {
 
   scheduleTokenRefresh(accessExpiresAt);
 
-  // Обновляем состояние Redux
   store.dispatch({ type: "auth/login/fulfilled", payload: accessToken });
 
   return accessToken;
@@ -33,7 +32,7 @@ export const refreshAccessToken = async (): Promise<string> => {
 
 const scheduleTokenRefresh = (expirationTime: number): void => {
   const now = Date.now();
-  const refreshTime = expirationTime - 5 * 60 * 1000; // Обновляем за 5 минут до истечения
+  const refreshTime = expirationTime - 5 * 60 * 1000;
 
   const timeUntilRefresh = refreshTime - now;
 

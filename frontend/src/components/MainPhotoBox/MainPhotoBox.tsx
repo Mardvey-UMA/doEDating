@@ -1,24 +1,44 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import PhotoIcon from "@mui/icons-material/Photo";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { uploadPhoto, removePhoto } from "../../store/userSlice";
 import styles from "./MainPhotoBox.module.scss";
 import PhotoItem from "./PhotoItem";
 import AddPhotoButton from "./AddPhotoButton";
 import { MainPhotoBoxProps } from "./MainPhotoBox.type.ts";
 
-const MainPhotoBox: React.FC<MainPhotoBoxProps> = ({
-  photos,
-  onAddPhoto,
-  onDeletePhoto,
-}) => {
+const MainPhotoBox: React.FC<MainPhotoBoxProps> = ({ photos = [] }) => {
   const [exitingIndex, setExitingIndex] = useState<number | null>(null);
+  const [isUploading, setIsUploading] = useState(false); 
+  const [initialPhotoCount, setInitialPhotoCount] = useState(photos.length);
+  const dispatch: AppDispatch = useDispatch();
 
   const handleDeletePhoto = (index: number) => {
-    setExitingIndex(index); // Устанавливаем индекс удаляемого фото для анимации выхода
+    setExitingIndex(index);
+    const photoUrl = photos[index];
     setTimeout(() => {
-      onDeletePhoto(index);
-      setExitingIndex(null); // Сбрасываем индекс после удаления
-    }, 300); // Длительность анимации выхода
+      dispatch(removePhoto(index, photoUrl));
+      setExitingIndex(null);
+    }, 300);
+  };
+
+  const handleAddPhoto = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setIsUploading(true);
+
+      await dispatch(uploadPhoto(file));
+
+      if (photos.length === initialPhotoCount) {
+        console.log("Ошибка: На фото не обнаружено лицо.");
+      } else {
+        setInitialPhotoCount(photos.length); 
+      }
+
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -31,15 +51,25 @@ const MainPhotoBox: React.FC<MainPhotoBoxProps> = ({
       </Box>
 
       <Box className={styles.photosContainer}>
-        {photos.map((photo, index) => (
+        {photos.map((photoId, index) => (
           <PhotoItem
             key={index}
-            src={photo}
-            isExiting={index === exitingIndex} // Флаг для анимации удаления
+            //userId={userId}
+            photoId={photoId}
+            isExiting={index === exitingIndex}
+            isLoading={false}
             onDelete={() => handleDeletePhoto(index)}
           />
         ))}
-        {photos.length < 9 && <AddPhotoButton onAdd={onAddPhoto} />}
+        {photos.length < 9 && (
+          <Box className={styles.addPhotoContainer}>
+            {isUploading ? (
+              <CircularProgress sx={{ color: 'black' }}/>
+            ) : (
+              <AddPhotoButton onAdd={handleAddPhoto} />
+            )}
+          </Box>
+        )}
       </Box>
     </Box>
   );

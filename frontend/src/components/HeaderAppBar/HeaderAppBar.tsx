@@ -11,17 +11,24 @@ import {
 import PaletteIcon from "@mui/icons-material/Palette";
 import styles from "./HeaderAppBar.module.scss";
 import { useDispatch } from "react-redux";
-//import { RootState } from "../../store";
 import { setTheme, ThemeType } from "../../store/themeSlice";
+import { updateUser } from "../../services/userService";
 
 const HeaderAppBar: React.FC = () => {
-  //const currentTheme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleThemeChange = (theme: ThemeType) => {
-    dispatch(setTheme(theme));
-    handleClose();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleThemeChange = async (theme: ThemeType) => {
+    try {
+      await updateUser({ theme });
+  
+      dispatch(setTheme(theme));
+    } catch (error) {
+      console.error("Ошибка при обновлении темы:", error);
+      alert("Не удалось изменить тему. Попробуйте ещё раз.");
+    } finally {
+      handleClose();
+    }
   };
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -37,12 +44,12 @@ const HeaderAppBar: React.FC = () => {
       <Toolbar className={styles.toolbar}>
         <Box className={styles.logoContainer}>
           <Box className={styles.logo}>
-            <Typography variant="h6" className={styles.logoText}>
+            <Typography variant="body1" className={styles.logoText}>
               DD
             </Typography>
           </Box>
-          <Typography variant="h6" noWrap className={styles.title}>
-            doedating
+          <Typography variant="h4" noWrap className={styles.title}>
+            Doedating
           </Typography>
         </Box>
 
@@ -67,7 +74,7 @@ const HeaderAppBar: React.FC = () => {
             Светлая
           </MenuItem>
           <MenuItem onClick={() => handleThemeChange("dark")}>Тёмная</MenuItem>
-          <MenuItem onClick={() => handleThemeChange("cake")}>Кекс</MenuItem>
+          <MenuItem onClick={() => handleThemeChange("cake")}>Малина</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>

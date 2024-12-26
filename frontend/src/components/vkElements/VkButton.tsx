@@ -9,7 +9,7 @@ const VkIdButton: React.FC<VkIdButtonProps> = ({ onClick }) => {
   return (
     <button
       id="VKIDSDKAuthButton"
-      className={`${style.VkIdWebSdk__button} ${style.VkIdWebSdk__button_reset}`} // Подключаем стили из модуля
+      className={`${style.VkIdWebSdk__button} ${style.VkIdWebSdk__button_reset}`}
       onClick={onClick}
     >
       <div className={style.VkIdWebSdk__button_container}>

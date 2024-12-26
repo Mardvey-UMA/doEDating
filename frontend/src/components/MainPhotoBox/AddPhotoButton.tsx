@@ -1,3 +1,4 @@
+// src/components/AddPhotoButton/AddPhotoButton.tsx
 import React from "react";
 import { Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -9,7 +10,7 @@ const AddPhotoButton: React.FC<AddPhotoButtonProps> = ({ onAdd }) => (
     <input
       accept="image/*"
       type="file"
-      onChange={onAdd}
+      onChange={onAdd} 
       className={styles.inputFile}
     />
     <AddIcon className={styles.addIcon} />

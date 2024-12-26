@@ -2,29 +2,33 @@
 
 .profileContainer {
   display: grid;
-  grid-template-columns: 2fr 3fr 3fr;
-  gap: 20px;
-  padding: 20px;
-  background-color: var(--primary-dark);
+  grid-template-columns: 33% 33% 33%;
+  background-color: var(--secondary-light);
   border-radius: 16px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  height: 90vh;
-  margin: 20px;
+  box-shadow: 0px 1px 6px #858585;
+  height: 100%;
+  padding: 1%;
+  width: 98%;
 }
 
 .profileFields {
   border-radius: 12px;
+  padding-right: 5%;
 }
 
 .photoBox {
-  padding: 20px;
+  padding-top: 15px;
+  padding-right: 5%;
   border-radius: 12px;
+  height: 122%;
 }
 
 .extraInfo {
+  padding-top: 12px;
+  padding-right: 10px;
   display: grid;
-  grid-template-rows: 45% 45% 5%;
-  height: 90%;
+  grid-template-rows: 40% 40% 5%;
+  height: 113%;
   .interests {
     border-radius: 12px;
   }
@@ -37,10 +41,3 @@
     justify-content: space-between;
   }
 }
-
-// .aboutMe {
-//   height: 50%;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-between;
-// }

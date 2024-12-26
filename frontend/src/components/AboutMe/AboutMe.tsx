@@ -13,7 +13,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ text, onTextChange }) => {
   const maxChars = 300;
 
   useEffect(() => {
-    setLocalText(text);
+    setLocalText(text || "");
   }, [text]);
 
   const handleEditClick = () => {

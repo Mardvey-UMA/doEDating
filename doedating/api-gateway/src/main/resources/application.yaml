@@ -1,0 +1,57 @@
+server:
+  port: 80
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: false
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+            - Method=GET, POST, PUT, PATCH, DELETE
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users, /api/users/**, /api/likes/**, /api/likes, /api/matches/**, /api/matches, /api/recommendation, /api/recommendation/**
+            - Method=GET, POST, PUT, PATCH, DELETE
+
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Methods Access-Control-Allow-Headers RETAIN_FIRST
+
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5430/auth_db
+    username: postgres
+    password: postgres
+
+jwt:
+  secret: b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+
+
+springdoc:
+  api-docs:
+    use-root-path: true
+

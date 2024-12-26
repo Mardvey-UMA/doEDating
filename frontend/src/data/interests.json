@@ -1,0 +1,902 @@
+{
+  "categories": {
+    "Хобби и Увлечения": {
+      "items": [
+        {
+          "id": 1,
+          "name": "Рисование",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 2,
+          "name": "Фотография",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 3,
+          "name": "Видеоигры",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 4,
+          "name": "Чтение",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 5,
+          "name": "Писательство",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 6,
+          "name": "Кулинария",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 7,
+          "name": "Рукоделие",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 8,
+          "name": "Вязание",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 9,
+          "name": "Садоводство",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 10,
+          "name": "Рыбалка",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 11,
+          "name": "Охота",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 12,
+          "name": "Коллекционирование",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 13,
+          "name": "Музыка",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 14,
+          "name": "Вокал",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 15,
+          "name": "Игра на гитаре",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 16,
+          "name": "Игра на пианино",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 17,
+          "name": "Виноделие",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 18,
+          "name": "Йога",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        },
+        {
+          "id": 19,
+          "name": "Танцы",
+          "color": "#D1E9F6",
+          "textColor": "#50819B"
+        }
+      ]
+    },
+    "Спорт и Активности": {
+      "items": [
+        {
+          "id": 20,
+          "name": "Бег",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 21,
+          "name": "Велосипед",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 22,
+          "name": "Плавание",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 23,
+          "name": "Фитнес",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 24,
+          "name": "Бокс",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 25,
+          "name": "Серфинг",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 26,
+          "name": "Футбол",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 27,
+          "name": "Баскетбол",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 28,
+          "name": "Волейбол",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 29,
+          "name": "Теннис",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 30,
+          "name": "Катание на лыжах",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 31,
+          "name": "Скалолазание",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 32,
+          "name": "Паркур",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 33,
+          "name": "Туризм",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 34,
+          "name": "Альпинизм",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 35,
+          "name": "Гольф",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 36,
+          "name": "Пилатес",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 37,
+          "name": "Сноуборд",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 38,
+          "name": "Катание на коньках",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        },
+        {
+          "id": 39,
+          "name": "Гребля",
+          "color": "#FFEAD6",
+          "textColor": "#CC7A33"
+        }
+      ]
+    },
+    "Кино и ТВ": {
+      "items": [
+        {
+          "id": 40,
+          "name": "Документальные фильмы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 41,
+          "name": "Триллеры",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 42,
+          "name": "Фантастика",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 43,
+          "name": "Комедии",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 44,
+          "name": "Драмы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 45,
+          "name": "Боевики",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 46,
+          "name": "Аниме",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 47,
+          "name": "Сериалы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 48,
+          "name": "Короткометражки",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 49,
+          "name": "Мультфильмы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 50,
+          "name": "Биографические фильмы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 51,
+          "name": "Исторические фильмы",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        },
+        {
+          "id": 52,
+          "name": "Музыкальные шоу",
+          "color": "#E9D1F6",
+          "textColor": "#81509B"
+        }
+      ]
+    },
+    "Технологии и Наука": {
+      "items": [
+        {
+          "id": 53,
+          "name": "Робототехника",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 54,
+          "name": "Искусственный интеллект",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 55,
+          "name": "Виртуальная реальность",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 56,
+          "name": "Космос",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 57,
+          "name": "Программирование",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 58,
+          "name": "Биотехнологии",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 59,
+          "name": "Астрономия",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 60,
+          "name": "Нанотехнологии",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 61,
+          "name": "Гаджеты",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 62,
+          "name": "Научные открытия",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 63,
+          "name": "Инженерия",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 64,
+          "name": "Автомобили",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 65,
+          "name": "Авиация",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        },
+        {
+          "id": 66,
+          "name": "Видеоблоги",
+          "color": "#D1D8F6",
+          "textColor": "#50679B"
+        }
+      ]
+    },
+    "Путешествия и Культура": {
+      "items": [
+        {
+          "id": 67,
+          "name": "Путешествия",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 68,
+          "name": "Экзотические страны",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 69,
+          "name": "Кулинарные туры",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 70,
+          "name": "Автопутешествия",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 71,
+          "name": "Кемпинг",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 72,
+          "name": "Путешествия по Европе",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 73,
+          "name": "Национальные парки",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 74,
+          "name": "Горы",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 75,
+          "name": "Пляжи",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 76,
+          "name": "Города",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 77,
+          "name": "Культура разных стран",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 78,
+          "name": "Архитектура",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        },
+        {
+          "id": 79,
+          "name": "Языки",
+          "color": "#F6EBD1",
+          "textColor": "#9B7F50"
+        }
+      ]
+    },
+    "Литература и Искусство": {
+      "items": [
+        {
+          "id": 80,
+          "name": "Поэзия",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 81,
+          "name": "Литература",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 82,
+          "name": "Классическая музыка",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 83,
+          "name": "Скульптура",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 84,
+          "name": "Театр",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 85,
+          "name": "Кинематограф",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 86,
+          "name": "Искусствоведение",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 87,
+          "name": "Модернизм",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 88,
+          "name": "Постмодернизм",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 89,
+          "name": "Барокко",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 90,
+          "name": "Импрессионизм",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 91,
+          "name": "Граффити",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        },
+        {
+          "id": 92,
+          "name": "Художественные галереи",
+          "color": "#F6D1D8",
+          "textColor": "#9B5057"
+        }
+      ]
+    },
+    "Здоровье и Образ жизни": {
+      "items": [
+        {
+          "id": 93,
+          "name": "Здоровое питание",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 94,
+          "name": "Вегетарианство",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 95,
+          "name": "Веганство",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 96,
+          "name": "Медитация",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 97,
+          "name": "Психология",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 98,
+          "name": "Осознанность",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 99,
+          "name": "Кинезитерапия",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 100,
+          "name": "ЗОЖ",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 101,
+          "name": "Диетология",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 102,
+          "name": "Сон",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 103,
+          "name": "Йога",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 104,
+          "name": "Альтернативная медицина",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        },
+        {
+          "id": 105,
+          "name": "Саморазвитие",
+          "color": "#D1F6E3",
+          "textColor": "#509B7F"
+        }
+      ]
+    },
+    "Еда и Напитки": {
+      "items": [
+        {
+          "id": 106,
+          "name": "Вино",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 107,
+          "name": "Кофе",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 108,
+          "name": "Чай",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 109,
+          "name": "Выпечка",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 110,
+          "name": "Сыр",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 111,
+          "name": "Вегетарианские блюда",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 112,
+          "name": "Мясные блюда",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 113,
+          "name": "Молекулярная кухня",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 114,
+          "name": "Коктейли",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 115,
+          "name": "Экзотические блюда",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 116,
+          "name": "Морепродукты",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 117,
+          "name": "Уличная еда",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        },
+        {
+          "id": 118,
+          "name": "Гастрономические фестивали",
+          "color": "#F6ECD1",
+          "textColor": "#9B8650"
+        }
+      ]
+    },
+    "Домашние животные": {
+      "items": [
+        {
+          "id": 119,
+          "name": "Кошки",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 120,
+          "name": "Собаки",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 121,
+          "name": "Лошади",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 122,
+          "name": "Рыбки",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 123,
+          "name": "Рептилии",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 124,
+          "name": "Попугаи",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 125,
+          "name": "Кролики",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 126,
+          "name": "Хомяки",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 127,
+          "name": "Экзотические питомцы",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 128,
+          "name": "Фермерские животные",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        },
+        {
+          "id": 129,
+          "name": "Аквариумистика",
+          "color": "#F6DCD1",
+          "textColor": "#9B6650"
+        }
+      ]
+    },
+    "Образование и Личностное развитие": {
+      "items": [
+        {
+          "id": 130,
+          "name": "Иностранные языки",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 131,
+          "name": "Самообразование",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 132,
+          "name": "Лидерство",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 133,
+          "name": "Креативность",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 134,
+          "name": "Бизнес",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 135,
+          "name": "Маркетинг",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 136,
+          "name": "Личностный рост",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 137,
+          "name": "Психология",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 138,
+          "name": "Карьера",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 139,
+          "name": "Ораторское искусство",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 140,
+          "name": "Публичные выступления",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 141,
+          "name": "Тайм-менеджмент",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 142,
+          "name": "Коучинг",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        },
+        {
+          "id": 143,
+          "name": "Лайфхаки",
+          "color": "#E1D1F6",
+          "textColor": "#75509B"
+        }
+      ]
+    }
+  }
+}

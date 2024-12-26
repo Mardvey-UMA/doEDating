@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import InputField from "../InputField";
 import { Button } from "@mui/material";
-import VkIdButton from "../VkElements/VkButton";
 import styles from "./Login.module.scss";
 import { LoginProps } from "./Login.type.ts";
+import VkIdButton from "../VkElements/VkButton.tsx";
 
 const Login: React.FC<LoginProps> = ({
   onLogin,
@@ -18,7 +18,7 @@ const Login: React.FC<LoginProps> = ({
     if (email && password) {
       onLogin(email, password);
     } else {
-      // Handle empty fields error locally if needed
+      console.log("ERROR");
     }
   };
 

@@ -1,6 +1,6 @@
-import { Interest } from "../../store/userSlice";
+//import { Interest } from "../../store/userSlice";
 
 export interface AddInterestsProps {
-  selectedInterests: Interest[];
-  onSaveInterests: (interests: Interest[]) => void;
+  selectedInterests: number[]; // Список id вместо полного объекта
+  onSaveInterests: (interests: number[]) => void;
 }

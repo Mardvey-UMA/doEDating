@@ -1,57 +1,295 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  # PostgreSQL database service
-  demo_db:
+  redis:
+      image: redis:latest
+      container_name: redis
+      ports:
+        - "6379:6379"
+      networks:
+        - doedating-network
+      command: ["redis-server", "--appendonly", "yes"]
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    networks:
+      - doedating-network
+
+  auth_db:
+    container_name: auth-db
     image: postgres:16.0
     restart: always
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=demo_db
+      - POSTGRES_DB=auth_db
     ports:
-      - '5432:5432'
+      - "5430:5432"
     volumes:
-      - pg_demo:/var/lib/postgresql/data
+      - ./doedating/auth-service:/docker-entrypoint-initdb.d
+      - pg_auth:/var/lib/postgresql/data
     networks:
-      - app-network
-
-  # Application service
-  app:
+      - doedating-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  # бдшка для пользователей
+  users_db:
+    container_name: users_db
+    image: postgres:16.0
     restart: always
-    build: ./backend
-    ports:
-      - "80:8080"
-    depends_on:
-      - demo_db
-    links:
-      - demo_db
     environment:
-      JWT_SECRET: 'b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e'
-      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTID: '52450914'
-      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTSECRET: '19UWS1uCtHohDO3ZmGWu'
-      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENTID: 'xyz'
-      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_GOOGLE_CLIENTSECRET: 'xyz'
-      SPRING_R2DBC_URL: 'r2dbc:postgresql://demo_db/demo_db'
-      SPRING_R2DBC_USERNAME: 'postgres'
-      SPRING_R2DBC_PASSWORD: 'postgres'
-      SPRING_FLYWAY_URL: 'jdbc:postgresql://demo_db:5432/demo_db'
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=users_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./doedating/user-service:/docker-entrypoint-initdb.d
+      - pg_user:/var/lib/postgresql/data
     networks:
-      - app-network
-# Frontend service
+      - doedating-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # photo-prism:
+  #   image: photoprism/photoprism:latest
+  #   restart: always
+  #   ports:
+  #     - "2342:2342"
+  #   volumes:
+  #     - photo_storage_volume:/photoprism/originals
+  #     - photoprism_data:/photoprism/storage
+  #   networks:
+  #     - doedating-network
+  #   environment:
+  #     PHOTOPRISM_ADMIN_PASSWORD: "1111"
+
+  # хранилище фото
+  photo-storage:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "8086:80"
+    volumes:
+      - photo_storage_volume:/usr/share/nginx/html/photos
+    networks:
+      - doedating-network
+    command: |
+      sh -c "echo 'server { listen 80; location /photos/ { autoindex on; alias /usr/share/nginx/html/photos/; } }' > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+  # # сервис обработки фото
+  photo-service:
+    build: ./face_detection_service
+    container_name: photo-service
+    environment:
+      KAFKA_BROKER: kafka:9092
+      INPUT_TOPIC: check-photo-face
+      OUTPUT_TOPIC: face-check-response
+      PHOTO_STORAGE_PATH: '/usr/share/nginx/html/photos'
+    depends_on:
+      - user-service
+      - kafka
+      - photo-storage
+      - eureka-server
+    networks:
+      - doedating-network
+    links:
+      - photo-storage
+    volumes:
+    - photo_storage_volume:/photo-storage/photos
+
+  eureka-server:
+    container_name: eureka-server
+    restart: always
+    build: doedating/eureka-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      - users_db
+    links:
+      - users_db
+    environment:
+      SERVER_PORT: "8761"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      JWT_SECRET: "b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e"
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTID:
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTSECRET:
+      SPRING_R2DBC_URL: "r2dbc:postgresql://users_db/users_db"
+      SPRING_R2DBC_USERNAME: "postgres"
+      SPRING_R2DBC_PASSWORD: "postgres"
+    networks:
+      - doedating-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  # микросервис входа
+  auth-service:
+    container_name: auth-service
+    restart: always
+    build: doedating/auth-service
+    ports:
+      - "8084:8084"
+    depends_on:
+      - users_db
+      - eureka-server
+    links:
+      - users_db
+    environment:
+      SERVER_PORT: "8084"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      JWT_SECRET: "b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e"
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTID: "52428023"
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTSECRET: "7Ol7NuJg5up6R5ggteKM"
+      SPRING_R2DBC_URL: "r2dbc:postgresql://auth_db/auth_db"
+      SPRING_R2DBC_USERNAME: "postgres"
+      SPRING_R2DBC_PASSWORD: "postgres"
+    networks:
+      - doedating-network
+
+
+  api-gateway:
+    container_name: api-gateway
+    restart: always
+    build: doedating/api-gateway
+    ports:
+      - "80:80"
+    depends_on:
+      - users_db
+      - eureka-server
+      - auth-service
+    links:
+      - users_db
+    environment:
+      SERVER_PORT: "80"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      JWT_SECRET: "b5f59337a612a2a7dc07328f3e7d1a04722967c7f06df20a499a7d3f91ff2a7e"
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTID: "52428023"
+      SPRING_SECURITY_OAUTH2_CLIENT_REGISTRATION_VK_CLIENTSECRET: "7Ol7NuJg5up6R5ggteKM"
+      SPRING_R2DBC_URL: "r2dbc:postgresql://auth_db/auth_db"
+      SPRING_R2DBC_USERNAME: "postgres"
+      SPRING_R2DBC_PASSWORD: "postgres"
+    networks:
+      - doedating-network
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,EXTERNAL://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_JMX_PORT: 9997
+      KAFKA_JMX_HOSTNAME: kafka
+    ports:
+      - "9092:9092" 
+      - "29092:29092"
+    networks:
+      - doedating-network
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "9092"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
+
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8085:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS: kafka:9092
+    depends_on:
+      - kafka
+    networks:
+      - doedating-network
+
+  # микросервис взаимодействия пользователя
+  user-service:
+    container_name: user-service
+    restart: always
+    build: doedating/user-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - kafka
+      - users_db
+      - eureka-server
+      - photo-storage 
+    links:
+      - users_db
+      - photo-storage
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
+      SERVER_PORT: "8082"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-server:8761/eureka/"
+      SPRING_R2DBC_URL: "r2dbc:postgresql://users_db/users_db"
+      SPRING_R2DBC_USERNAME: "postgres"
+      SPRING_R2DBC_PASSWORD: "postgres"
+      PHOTO_STORAGE_PATH: '/usr/share/nginx/html/photos'
+    networks:
+      - doedating-network
+    volumes:
+      - photo_storage_volume:/usr/share/nginx/html/photos
+
   frontend:
     build:
       context: ./frontend
     ports:
       - "3000:80" 
     depends_on:
-      - app 
+      - eureka-server
+      - auth-service
+      - user-service
+      - api-gateway
     networks:
-      - app-network
+      - doedating-network
+    restart: always
+    environment:
+      REACT_APP_API_URL: "http://localhost:80" 
+
+  telegram_notifications:
+    container_name: tg_bot
+    build: ./tgbot
+    restart: always
+    depends_on:
+      - kafka
+      - users_db
+      
+    networks:
+       - doedating-network
 
 networks:
-  app-network:
+  doedating-network:
     driver: bridge
 
 volumes:
-  pg_demo:
+  pg_user:
+  pg_auth:
+  photo_storage_volume:

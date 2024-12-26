@@ -1,0 +1,42 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: user-service
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/users_db
+    username: postgres
+    password: postgres
+  kafka:
+    bootstrap-servers: ${CONNECT_BOOTSTRAP_SERVERS}
+  data:
+    redis:
+      host: redis
+      port: 6379
+      database: 0
+      timeout: 10000ms
+
+openapi:
+  service:
+    title: user-service doc
+    version: 1.0.0
+    url: http://localhost:80
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/
+
+front:
+  redirect-uri: http://localhost:3000/login/oauth2/callback?access_token=%s&access_expires_at=%d
+
+geo:
+  api-key: edb942fc6b6d439caff6bc605c4f60db
+
+
+photo:
+  storage:
+    path: /usr/share/nginx/html/photos
+

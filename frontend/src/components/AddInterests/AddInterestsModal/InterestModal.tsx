@@ -9,14 +9,13 @@ import {
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import styles from "./InterestModal.module.scss";
-import interestsData from "../interests.json";
-import { invert } from "polished";
+
 import ScrollBox from "../../ScrollBox/index.ts";
-import { InterestModalProps, Interest } from "./InterestModal.type.ts";
+import { InterestModalProps } from "./InterestModal.type.ts";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../store/index.ts";
 import { setSelectedInterests } from "../../../store/userSlice";
-
+import interestsData from "../../../data/interests.json";
 const MAX_SELECTED_INTERESTS = 10;
 
 const InterestModal: React.FC<InterestModalProps> = ({
@@ -25,48 +24,45 @@ const InterestModal: React.FC<InterestModalProps> = ({
   onSave,
 }) => {
   const dispatch = useDispatch();
-  const currentTheme = useSelector((state: RootState) => state.theme.theme);
-  const reduxSelectedInterests = useSelector(
+  const reduxSelectedInterestIds = useSelector(
     (state: RootState) => state.user.selectedInterests
   );
 
-  const [selected, setSelected] = useState<Interest[]>(reduxSelectedInterests);
+  const [selectedIds, setSelectedIds] = useState<number[]>(
+    reduxSelectedInterestIds
+  );
 
-  // Синхронизация с Redux при открытии модального окна
   useEffect(() => {
     if (open) {
-      setSelected(reduxSelectedInterests);
+      setSelectedIds(reduxSelectedInterestIds);
     }
-  }, [open, reduxSelectedInterests]);
+  }, [open, reduxSelectedInterestIds]);
 
-  const handleChipClick = (interest: Interest) => {
-    setSelected((prevSelected) => {
-      const isSelected = prevSelected.some((i) => i.name === interest.name);
-
-      // Удаление, если уже выбрано, или ограничение на 10 тегов
+  const handleChipClick = (interestId: number) => {
+    setSelectedIds((prevSelected) => {
+      const isSelected = prevSelected.includes(interestId);
       if (isSelected) {
-        return prevSelected.filter((i) => i.name !== interest.name);
+        return prevSelected.filter((id) => id !== interestId);
       } else if (prevSelected.length < MAX_SELECTED_INTERESTS) {
-        return [...prevSelected, interest];
+        return [...prevSelected, interestId];
       }
-      return prevSelected; // Если 10 уже выбрано, не добавляем новый тег
+      return prevSelected;
     });
   };
 
   const handleSave = () => {
-    dispatch(setSelectedInterests(selected));
-    onSave(selected);
+    dispatch(setSelectedInterests(selectedIds));
+    onSave(selectedIds);
     onClose();
   };
 
   return (
     <Modal open={open} onClose={onClose}>
       <Box className={styles.modalBox}>
-        {/* Счетчик выбранных интересов */}
         <Box className={styles.header}>
           <Typography variant="h6">Выберите категории</Typography>
           <Typography variant="body2" className={styles.counter}>
-            {selected.length} / {MAX_SELECTED_INTERESTS}
+            {selectedIds.length} / {MAX_SELECTED_INTERESTS}
           </Typography>
           <IconButton className={styles.closeBtn} onClick={onClose}>
             <Close />
@@ -80,37 +76,23 @@ const InterestModal: React.FC<InterestModalProps> = ({
                 <Typography variant="subtitle1">{categoryName}</Typography>
                 <div className={styles.chipsContainer}>
                   {category.items.map((interest) => {
-                    const isSelected = selected.some(
-                      (i) => i.name === interest.name
-                    );
-                    const backgroundColor =
-                      currentTheme === "dark"
-                        ? invert(interest.color)
-                        : interest.color;
-
-                    const textColor =
-                      currentTheme === "dark"
-                        ? invert(interest.textColor)
-                        : interest.textColor;
-
+                    const isSelected = selectedIds.includes(interest.id);
                     return (
                       <Chip
-                        key={interest.name}
+                        key={interest.id}
                         label={interest.name}
                         style={{
-                          backgroundColor: backgroundColor,
-                          color: textColor,
+                          backgroundColor: interest.color,
+                          color: interest.textColor,
                           fontSize: "16px",
-                          border: isSelected
-                            ? `2px solid ${invert(backgroundColor)}`
-                            : "none",
+                          border: isSelected ? `2px solid black` : "none",
                         }}
-                        onClick={() => handleChipClick(interest)}
+                        onClick={() => handleChipClick(interest.id)}
                         className={isSelected ? styles.selectedChip : ""}
                         deleteIcon={isSelected ? <Close /> : undefined}
                         onDelete={
                           isSelected
-                            ? () => handleChipClick(interest)
+                            ? () => handleChipClick(interest.id)
                             : undefined
                         }
                       />
