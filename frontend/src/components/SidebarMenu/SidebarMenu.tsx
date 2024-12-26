@@ -2,7 +2,8 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-//import MailIcon from "@mui/icons-material/Mail";
+import MailIcon from "@mui/icons-material/Mail";
+import SettingsIcon from "@mui/icons-material/Settings";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SearchIcon from "@mui/icons-material/StarRate";//import SettingsIcon from "@mui/icons-material/StarRate";
 import styles from "./SidebarMenu.module.scss";
@@ -14,11 +15,11 @@ const menuItems = [
     label: "Профиль",
     icon: <AccountCircleIcon className={styles.icon} />,
   },
-  // {
-  //   path: "/chat",
-  //   label: "Сообщения",
-  //   icon: <MailIcon className={styles.icon} />,
-  // },
+  {
+    path: "/chat",
+    label: "Сообщения",
+    icon: <MailIcon className={styles.icon} />,
+  },
   {
     path: "/notifications",
     label: "События",
@@ -29,11 +30,11 @@ const menuItems = [
     label: "Рекомендации",
     icon: <SearchIcon className={styles.icon} />,
   },
-  // {
-  //   path: "/settings",
-  //   label: "Настройки",
-  //   icon: <SettingsIcon className={styles.icon} />,
-  // },
+  {
+    path: "/settings",
+    label: "Настройки",
+    icon: <SettingsIcon className={styles.icon} />,
+  },
 ];
 
 const SidebarMenu: React.FC<SidebarMenuProps> = () => {

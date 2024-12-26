@@ -45,7 +45,6 @@ const AppContent: React.FC = () => {
 
           <Route path="/" element={<MainLayout />}>
             <Route path="myprofile" element={<UserProfilePage />} />
-            {/* <Route path="admin" element={<AdminPage />} /> */}
             <Route path="chat" element={<ChatPage />} />
             <Route path="notifications" element={<NotificationPage />} />
             <Route path="search" element={<SearchPage />} />
@@ -58,7 +57,7 @@ const AppContent: React.FC = () => {
     </ThemeProvider>
   );
 };
-//http://localhost/api/auth/login/oauth2/code/vk
+
 function App() {
   return (
     <Provider store={store}>

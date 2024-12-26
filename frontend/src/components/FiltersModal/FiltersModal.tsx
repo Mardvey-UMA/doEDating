@@ -20,6 +20,7 @@ import {
 import { resetUsers, reverseUsers } from "../../store/searchSlice";
 import { fetchUsers } from "../../store/searchSlice";
 import { useAppDispatch } from "../../store";
+import "./FiltersModal.scss";
 
 interface FiltersModalProps {
   open: boolean;
@@ -29,7 +30,6 @@ interface FiltersModalProps {
 const FiltersModal: React.FC<FiltersModalProps> = ({ open, onClose }) => {
   const dispatch = useAppDispatch();
 
-  // Стейт для фильтров
   const [filters, setFilters] = useState<Filter>({
     minAge: 18,
     maxAge: 99,
@@ -72,66 +72,91 @@ const FiltersModal: React.FC<FiltersModalProps> = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Фильтры</DialogTitle>
-      <DialogContent>
-        <Typography gutterBottom>Минимальный возраст</Typography>
-        <Slider
-          value={filters.minAge}
-          onChange={(_, value) => handleFilterChange("minAge", value as number)}
-          valueLabelDisplay="auto"
-          min={18}
-          max={100}
-        />
+      <div className="filters-modal">
+        {/* Кнопка закрытия */}
+        <span className="close-button" onClick={onClose}>×</span>
 
-        <Typography gutterBottom>Максимальный возраст</Typography>
-        <Slider
-          value={filters.maxAge}
-          onChange={(_, value) => handleFilterChange("maxAge", value as number)}
-          valueLabelDisplay="auto"
-          min={18}
-          max={100}
-        />
+        <DialogTitle>Фильтры</DialogTitle>
+        <DialogContent>
+          <div className="filter-row">
+            <Typography gutterBottom>Минимальный возраст</Typography>
+            <div className="slider-container">
+              <Slider
+                value={filters.minAge}
+                onChange={(_, value) => handleFilterChange("minAge", value as number)}
+                valueLabelDisplay="auto"
+                min={18}
+                max={100}
+              />
+              <span className="slider-value">{filters.minAge}</span>
+            </div>
+          </div>
 
-        <Typography gutterBottom>Пол</Typography>
-        <RadioGroup
-          value={filters.genderFilter}
-          onChange={(e) => handleFilterChange("genderFilter", e.target.value)}
-        >
-          <FormControlLabel value="MALE" control={<Radio />} label="Мужской" />
+          <div className="filter-row">
+            <Typography gutterBottom>Максимальный возраст</Typography>
+            <div className="slider-container">
+              <Slider
+                value={filters.maxAge}
+                onChange={(_, value) => handleFilterChange("maxAge", value as number)}
+                valueLabelDisplay="auto"
+                min={18}
+                max={100}
+              />
+              <span className="slider-value">{filters.maxAge}</span>
+            </div>
+          </div>
+
+          <div className="filter-row">
+            <Typography gutterBottom>Пол</Typography>
+            <RadioGroup
+              value={filters.genderFilter}
+              onChange={(e) => handleFilterChange("genderFilter", e.target.value)}
+            >
           <FormControlLabel
-            value="FEMALE"
-            control={<Radio />}
-            label="Женский"
-          />
-        </RadioGroup>
-
-        <Typography gutterBottom>Радиус поиска (км)</Typography>
-        <Slider
-          value={filters.searchRadius}
-          onChange={(_, value) =>
-            handleFilterChange("searchRadius", value as number)
-          }
-          valueLabelDisplay="auto"
-          min={1}
-          max={100}
+          value="MALE"
+          control={<Radio color="secondary" />}
+          label="Мужской"
         />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleRecalculateRecommendations} color="secondary">
-          Пересчитать рекомендации
-        </Button>
-        <Button onClick={handleUpdateFilters} color="secondary">
-          Обновить фильтры
-        </Button>
+        <FormControlLabel
+          value="FEMALE"
+          control={<Radio color="secondary" />}
+          label="Женский"
+        />
+            </RadioGroup>
+          </div>
 
-        <Button onClick={handleReverseUsers} color="secondary">
-          Перевернуть список
-        </Button>
+          <div className="filter-row">
+            <Typography gutterBottom>Радиус поиска (км)</Typography>
+            <div className="slider-container">
+              <Slider
+                value={filters.searchRadius}
+                onChange={(_, value) => handleFilterChange("searchRadius", value as number)}
+                valueLabelDisplay="auto"
+                min={1}
+                max={100}
+              />
+              <span className="slider-value">{filters.searchRadius}</span>
+            </div>
+          </div>
+        </DialogContent>
 
-        <Button onClick={onClose} color="secondary">
-          Закрыть
-        </Button>
-      </DialogActions>
+        <DialogActions>
+          <Button onClick={handleRecalculateRecommendations} color="secondary">
+            Пересчитать рекомендации
+          </Button>
+          <Button onClick={handleUpdateFilters} color="secondary">
+            Обновить фильтры
+          </Button>
+
+          <Button onClick={handleReverseUsers} color="secondary">
+            Перевернуть список
+          </Button>
+
+          <Button onClick={onClose} color="secondary">
+            Закрыть
+          </Button>
+        </DialogActions>
+      </div>
     </Dialog>
   );
 };

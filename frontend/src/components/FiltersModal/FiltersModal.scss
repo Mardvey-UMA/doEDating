@@ -1,0 +1,149 @@
+// src/components/FiltersModal/FiltersModal.scss
+
+.filters-modal {
+    position: fixed;
+    background-color: var(--secondary-contrast-text);
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1200;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  
+    // Закрытие с помощью крестика
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+      transition: color 0.2s;
+  
+      &:hover {
+        color: #333;
+      }
+    }
+  
+    // Заголовок модального окна
+    .MuiDialogTitle-root {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+  
+    // Основное содержимое (слидеры, радио кнопки)
+    .MuiDialogContent-root {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: 100%;
+      justify-content: space-between;
+      padding-bottom: 30px;
+    }
+  
+    .MuiTypography-root {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+  
+    .MuiSlider-root {
+      margin-bottom: 10px;
+      color: var(--primary-light); // Яркий цвет для слайдера
+    }
+  
+    .MuiRadioGroup-root {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .MuiRadio-root {
+      color: var(--primary-light); // Яркий цвет для радиокнопок
+    }
+  
+    .MuiSlider-thumb {
+      background-color: var(--primary-light); // Цвет для ползунка слайдера
+    }
+  
+    .MuiSlider-valueLabel {
+      font-size: 12px;
+      color: var(--primary-light); // Цвет для отображаемых значений слайдера
+    }
+  
+    // Показ значений минимального и максимального возраста и радиуса поиска
+    .slider-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  
+    .slider-value {
+      font-size: 18px;
+      color: #333;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+  
+    // Радиус поиска
+    .search-radius {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #555;
+    }
+  
+    // Радиокнопки
+    .MuiFormControlLabel-root {
+      //font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    .MuiRadio-root {
+      width: 20px; /* Размер радиокнопки */
+      height: 20px; /* Размер радиокнопки */
+
+      border: 2px solid #ccc; /* Цвет обводки кнопки */
+      border-radius: 50%; /* Кнопка в форме круга */
+      transition: all 0.3s ease;
+    
+      &.Mui-checked {
+        background-color: var(--primary-light); /* Цвет заливки при выборе */
+        border-color: var(--primary-light); /* Цвет обводки при выборе */
+      }
+    
+      &:hover {
+        border-color: var(--primary-light); /* Цвет обводки при наведении */
+      }
+    
+      .MuiRadio-inner {
+        width: 12px; /* Размер внутреннего кружочка */
+        height: 12px; /* Размер внутреннего кружочка */
+        background-color: var(--primary-light); /* Цвет внутреннего кружочка по умолчанию */
+        border-radius: 50%; /* Круглая форма для внутреннего кружочка */
+      }
+    }
+    
+    /* Для радиокнопки в checked состоянии (когда она выбрана) */
+    &.Mui-checked .MuiRadio-inner {
+      background-color: var(--primary-light); /* Цвет внутреннего кружочка при выборе */
+    }
+  }
+  
+    // Кнопки
+    .MuiDialogActions-root {
+      display: flex;
+      justify-content: space-between;
+      //gap: 10px;
+    }
+  
+    .MuiButton-root {
+      text-transform: none;
+    }
+
+
+  

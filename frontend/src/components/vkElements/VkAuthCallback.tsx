@@ -16,13 +16,13 @@ const VkAuthCallback: React.FC = () => {
     if (accessToken && accessExpiresAt) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("accessExpiresAt", accessExpiresAt);
+
       const fetchUserData = async () => {
         try {
-          const userInfo = await fetchUserInfo();
-          dispatch(vkAuthSuccess({ token: accessToken, userId: userInfo.id }));
+          await fetchUserInfo();
+          dispatch(vkAuthSuccess({ token: accessToken }));
         } catch (error) {
           console.error("Ошибка при получении данных о пользователе:", error);
-          dispatch(vkAuthSuccess({ token: accessToken, userId: 1 }));
         }
       };
 
@@ -30,7 +30,6 @@ const VkAuthCallback: React.FC = () => {
 
       navigate("/myprofile");
     } else {
-      console.log(params);
       console.error("Access token или access_expires_at не найдены в URL");
     }
   }, [dispatch, navigate]);

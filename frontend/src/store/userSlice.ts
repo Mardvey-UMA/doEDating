@@ -29,6 +29,7 @@ interface UserState {
   selectedInterests: number[];
   photos: string[];
   telegramId: string;
+  theme: string;
 }
 
 const initialState: UserState = {
@@ -45,6 +46,7 @@ const initialState: UserState = {
   aboutMe: "",
   selectedInterests: [],
   photos: [],
+  theme: "LIGHT",
 };
 
 export const fetchAndSetUserInfo = createAsyncThunk(
@@ -67,6 +69,11 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    clearUser: (state) => {
+      Object.assign(state, initialState);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("accessTokenExpirationTime");
+    },
     updateTelegramId(state, action: PayloadAction<string>) {
       state.telegramId = action.payload;
     },
@@ -131,12 +138,12 @@ const userSlice = createSlice({
 
 export const saveUserProfile = (): AppThunk => async (_dispatch, getState) => {
   const state = getState() as RootState;
-  const { userId } = state.auth;
+  const { token } = state.auth;
 
-  if (userId !== null) {
+  if (token !== null) {
     const userState = state.user;
     try {
-      await updateUser(userId, {
+      await updateUser({
         email: userState.email,
         first_name: userState.firstName,
         last_name: userState.lastName,
@@ -160,16 +167,16 @@ export const saveUserProfile = (): AppThunk => async (_dispatch, getState) => {
 export const uploadPhoto =
   (file: File): AppThunk =>
   async (dispatch, getState) => {
-    const userId = (getState() as RootState).auth.userId;
+    const token = (getState() as RootState).auth.token;
 
-    if (userId !== null) {
+    if (token !== null) { // тут поменять условие
       try {
-        const photoUrl = await uploadUserPhoto(file, userId);
+        const photoUrl = await uploadUserPhoto(file);
         if (photoUrl) {
           dispatch(addPhoto(photoUrl));
         } else {
           console.error("Лицо на фото не обнаружено, загрузка отменена.");
-          alert("Лицо на фото не обнаружено, загрузка отменена.");
+          //alert("Лицо на фото не обнаружено, загрузка отменена.");
         }
       } catch (error) {
         console.error("Ошибка загрузки фото:", error);
@@ -180,12 +187,12 @@ export const uploadPhoto =
 export const removePhoto =
   (index: number, photoUrl: string): AppThunk =>
   async (dispatch, getState) => {
-    const userId = (getState() as RootState).auth.userId;
+    const token = (getState() as RootState).auth.token;
 
-    if (userId !== null) {
+    if (token !== null) {
       const filename = photoUrl.split("/").pop();
       try {
-        await deleteUserPhoto(userId, filename!);
+        await deleteUserPhoto(filename!);
         dispatch(deletePhoto(index));
       } catch (error) {
         console.error("Ошибка удаления фотографии:", error);
@@ -208,6 +215,7 @@ export const {
   setSelectedInterests,
   addPhoto,
   deletePhoto,
+  clearUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

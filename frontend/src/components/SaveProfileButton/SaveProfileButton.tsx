@@ -33,14 +33,10 @@ const SaveProfileButton: React.FC = () => {
   };
 
   const handleSave = async () => {
-    if (!userProfile.id) {
-      alert("Не удалось сохранить профиль: ID пользователя отсутствует");
-      return;
-    }
 
     if (isProfileComplete()) {
       try {
-        await updateUser(userProfile.id, {
+        await updateUser({
           email: userProfile.email,
           first_name: userProfile.firstName,
           last_name: userProfile.lastName,

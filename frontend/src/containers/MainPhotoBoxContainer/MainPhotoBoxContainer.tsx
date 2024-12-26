@@ -8,7 +8,7 @@ import styles from "./MainPhotoBoxContainer.module.scss";
 import { AppDispatch } from "../../store";
 const MainPhotoBoxContainer: React.FC<MainPhotoBoxContainerProps> = () => {
   const photos = useSelector((state: RootState) => state.user.photos);
-  const userId = useSelector((state: RootState) => state.auth.userId);
+  //const userId = useSelector((state: RootState) => state.auth.userId);
   const dispatchApp: AppDispatch = useDispatch();
   const handleAddPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -25,7 +25,7 @@ const MainPhotoBoxContainer: React.FC<MainPhotoBoxContainerProps> = () => {
   return (
     <div className={styles.container}>
       <MainPhotoBox
-        userId={userId ?? 0}
+        //userId={userId ?? 0}
         photos={photos}
         onAddPhoto={handleAddPhoto}
         onDeletePhoto={handleDeletePhoto}

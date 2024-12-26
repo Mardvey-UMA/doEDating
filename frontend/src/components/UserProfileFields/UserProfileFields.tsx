@@ -33,8 +33,8 @@ const UserProfileFields: React.FC<UserProfileFieldsProps> = ({
   onEducationChange,
   onTelegramIdChange,
 }) => {
-  console.log("Тип данных birthDate:", typeof birthDate);
-  console.log("Значение birthDate:", birthDate);
+  //console.log("Тип данных birthDate:", typeof birthDate);
+  //console.log("Значение birthDate:", birthDate);
 
   const correctedBirthDate = birthDate ? new Date(birthDate) : new Date();
 

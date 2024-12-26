@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchInterests } from "../services/fetchInterests";
-import { RootState } from ".";
+import { RootState, AppDispatch } from ".";
 import { fetchUsersRecommendation } from "./fetchUsersRec";
+import { fetchWithToken } from "../services/fetchService";
 
 export interface Interest {
   name: string;
   color: string;
   textColor: string;
 }
+
 export interface User {
   id: number;
   username: string;
@@ -34,21 +36,65 @@ const initialState: SearchState = {
   isLoading: false,
 };
 
-export const fetchUsers = createAsyncThunk<User[], void>(
-  "search/fetchUsers",
+// export const fetchUsers = createAsyncThunk<
+//   User[], 
+//   void, 
+//   { state: RootState; dispatch: AppDispatch }
+// >(
+//   "search/fetchUsers",
+//   async (_, { rejectWithValue, dispatch }) => {
+//     try {
+//       const users = await fetchUsersRecommendation(dispatch);
+//       return users;
+//     } catch (error) {
+//       return rejectWithValue(error);
+//     }
+//   }
+// );
+
+
+export const startRecommendation = createAsyncThunk<
+  void,
+  void,
+  { state: RootState; dispatch: AppDispatch }
+>(
+  "search/startRecommendation",
   async (_, { rejectWithValue }) => {
     try {
-      const users = await fetchUsersRecommendation();
-      return users;
+      await fetchWithToken("/api/recommendation", {
+        method: "POST"
+      });
     } catch (error) {
       return rejectWithValue(error);
     }
   }
 );
 
+
+export const fetchUsers = createAsyncThunk<
+  User[], 
+  void, 
+  { state: RootState; dispatch: AppDispatch }
+>(
+  "search/fetchUsers",
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      //console.log("fetchUsers: инициируем startRecommendation");
+      dispatch(startRecommendation());
+      //console.log("fetchUsers: startRecommendation успешно завершён");
+
+      const users = await fetchUsersRecommendation(dispatch);
+      console.log('Finally', users)
+      return users;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 export const fetchUserInterests = createAsyncThunk<
   void,
-  { userId: number; index: number }
+  { userId: number; index: number },
+  { state: RootState; dispatch: AppDispatch }
 >(
   "search/fetchUserInterests",
   async ({ userId, index }, { dispatch, rejectWithValue }) => {
@@ -61,7 +107,13 @@ export const fetchUserInterests = createAsyncThunk<
   }
 );
 
-// Слайс для работы с поиском
+
+export const addUsers = (users: User[]) => ({
+  type: "search/addUsers",
+  payload: users,
+});
+
+
 const searchSlice = createSlice({
   name: "search",
   initialState,
@@ -94,8 +146,11 @@ const searchSlice = createSlice({
       state.currentIndex = 0;
     },
     reverseUsers(state) {
-      state.users.reverse(); 
-      state.currentIndex = 0; // Сбрасываем индекс на первый элемент
+      state.users.reverse();
+      state.currentIndex = 0;
+    },
+    addUsersToState(state, action: PayloadAction<User[]>) {
+      state.users = [...state.users, ...action.payload];
     },
   },
   extraReducers: (builder) => {
@@ -122,8 +177,7 @@ const searchSlice = createSlice({
   },
 });
 
-
-export const { nextUser, setUserInterests, resetUsers, reverseUsers } =
+export const { nextUser, setUserInterests, resetUsers, reverseUsers, addUsersToState } =
   searchSlice.actions;
 
 export const selectSearchState = (state: RootState) => state.search;

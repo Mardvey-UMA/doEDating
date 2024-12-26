@@ -1,7 +1,7 @@
 // src/store/themeSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type ThemeType = "light" | "dark" | "cake"; // Изменили "custom" на "cake"
+export type ThemeType = "light" | "dark" | "cake";
 
 interface ThemeState {
   theme: ThemeType;

@@ -32,7 +32,7 @@ export interface UserInfo {
   photos: string[];
   telegramId: string;
   chatId: string;
-
+  theme: string;
 }
 export interface UserResponseInfo {
   id: number;
@@ -50,4 +50,5 @@ export interface UserResponseInfo {
   photos: string[];
   telegram_id:string;
   chat_id: string;
+  theme: string;
 }

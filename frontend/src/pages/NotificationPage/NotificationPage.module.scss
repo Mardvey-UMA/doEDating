@@ -1,35 +1,43 @@
-/* src/pages/NotificationPage/NotificationPage.module.scss */
-
+/* styles/NotificationPage.module.scss */
 .pageContainer {
   height: 80%;
   background-color: var(--secondary-light);
   padding: 8px 0px;
   border-radius: 12px;
-}
-
-.card {
-  background-color: var(--secondary-dark);
-  border-radius: 8px;
-  padding: 1%;
-  box-shadow: 2px 2px 4px #4d4d4d;
-}
-
-.header {
   display: flex;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.badge {
-  background-color: var(--secondary-main);
-  color: var(--secondary-light);
-  font-size: 14pt;
-  padding: 5px;
-  border-radius: 8px;
-  height: 40%;
-  margin-bottom: 1%;
+.likeSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
 }
 
-.emptyState {
-  text-align: center;
-  padding: 12px 0px;
-  color: var(--secondary-light);
+.likeCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  border-radius: 12px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #bbb;
+  border-radius: 50%;
+}
+
+.likeIcon {
+  font-size: 28px;
 }

@@ -9,7 +9,7 @@ import PhotoItem from "./PhotoItem";
 import AddPhotoButton from "./AddPhotoButton";
 import { MainPhotoBoxProps } from "./MainPhotoBox.type.ts";
 
-const MainPhotoBox: React.FC<MainPhotoBoxProps> = ({ userId, photos = [] }) => {
+const MainPhotoBox: React.FC<MainPhotoBoxProps> = ({ photos = [] }) => {
   const [exitingIndex, setExitingIndex] = useState<number | null>(null);
   const [isUploading, setIsUploading] = useState(false); 
   const [initialPhotoCount, setInitialPhotoCount] = useState(photos.length);
@@ -32,7 +32,7 @@ const MainPhotoBox: React.FC<MainPhotoBoxProps> = ({ userId, photos = [] }) => {
       await dispatch(uploadPhoto(file));
 
       if (photos.length === initialPhotoCount) {
-        alert("Ошибка: На фото не обнаружено лицо.");
+        console.log("Ошибка: На фото не обнаружено лицо.");
       } else {
         setInitialPhotoCount(photos.length); 
       }
@@ -54,7 +54,7 @@ const MainPhotoBox: React.FC<MainPhotoBoxProps> = ({ userId, photos = [] }) => {
         {photos.map((photoId, index) => (
           <PhotoItem
             key={index}
-            userId={userId}
+            //userId={userId}
             photoId={photoId}
             isExiting={index === exitingIndex}
             isLoading={false}

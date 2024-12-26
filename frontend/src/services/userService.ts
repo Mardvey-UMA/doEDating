@@ -32,13 +32,12 @@ export const fetchUsers = async (): Promise<User[]> => {
 };
 export const uploadUserPhoto = async (
   file: File,
-  userId: number
 ): Promise<string | null> => {
   const formData = new FormData();
   formData.append("file", file);
 
   const response = await fetchWithToken<{ photo_url?: string; error?: string }>(
-    `/api/users/${userId}/photo`,
+    `/api/users/photo`,
     {
       method: "POST",
       credentials: "include",
@@ -59,11 +58,10 @@ export const uploadUserPhoto = async (
 };
 
 export const deleteUserPhoto = async (
-  userId: number,
   filename: string
 ): Promise<void> => {
   try {
-    await fetchWithToken(`/api/users/${userId}/photo/${filename}`, {
+    await fetchWithToken(`/api/users/photo/${filename}`, {
       method: "DELETE",
     });
   } catch (error) {
@@ -72,9 +70,8 @@ export const deleteUserPhoto = async (
   }
 };
 
-// Функция для обновления данных пользователя
+//функция для обновления данных пользователя
 export const updateUser = async (
-  id: number,
   updatedFields: Partial<{
     email: string;
     first_name: string;
@@ -88,10 +85,11 @@ export const updateUser = async (
     selected_interests: number[];
     photos: string[];
     telegram_id: string;
+    theme: string;
   }>
 ): Promise<void> => {
   try {
-    const response = await fetchWithToken(`/api/users/${id}`, {
+    const response = await fetchWithToken(`/api/users`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFields),
@@ -107,10 +105,10 @@ export const updateUser = async (
     throw new Error("Ошибка обновления профиля пользователя");
   }
 };
-// Функция для удаления пользователя
+//функция для удаления пользователя
 export const deleteUser = async (id: number): Promise<void> => {
   try {
-    await fetchWithToken<void>(`/api/users/${id}`, {
+    await fetchWithToken<void>(`/api/users/`, {
       method: "DELETE",
     });
 
@@ -121,7 +119,7 @@ export const deleteUser = async (id: number): Promise<void> => {
   }
 };
 
-// Функция для получения информации о пользователе по ID
+//функция для получения информации о пользователе по ID
 export const fetchUserById = async (id: number): Promise<User> => {
   try {
     const response = await fetchWithToken<UserResponse>(`/api/users/${id}`, {
@@ -146,7 +144,7 @@ export const fetchUserById = async (id: number): Promise<User> => {
   }
 };
 
-// Функция для получения полной информации о текущем пользователе
+//функция для получения полной информации о текущем пользователе
 export const fetchUserInfo = async (): Promise<UserInfo> => {
   try {
     const response = await fetchWithToken<UserResponseInfo>(`/api/users/info`, {
@@ -157,7 +155,7 @@ export const fetchUserInfo = async (): Promise<UserInfo> => {
       throw new Error("Не удалось получить информацию о пользователе");
     }
 
-    // Преобразуем `UserResponseInfo` в `UserInfo`
+    //преобразует`UserResponseInfo` в `UserInfo`
     const user: UserInfo = {
       id: response.id,
       username: response.username,
@@ -173,7 +171,8 @@ export const fetchUserInfo = async (): Promise<UserInfo> => {
       selectedInterests: response.selected_interests,
       photos: response.photos,
       telegramId: response.telegram_id,
-      chatId: response.chat_id
+      chatId: response.chat_id,
+      theme: response.theme
     };
 
     return user;

@@ -6,7 +6,7 @@ import { PhotoItemProps } from "./PhotoItem.type.ts";
 import { fetchWithTokenPhoto } from "../../services/fetchService";
 
 const PhotoItem: React.FC<PhotoItemProps> = ({
-  userId,
+  //userId,
   photoId,
   onDelete,
   isLoading,
@@ -20,7 +20,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({
       setLoading(true);
       try {
         const photoName = photoId.split("/").pop();
-        const photoUrl = `/api/users/${userId}/photo/${photoName}`;
+        const photoUrl = `/api/users/photo/${photoName}`;
         const response = await fetchWithTokenPhoto(photoUrl, {
           method: "GET",
           credentials: "include",
@@ -42,7 +42,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({
         URL.revokeObjectURL(photoSrc);
       }
     };
-  }, [userId, photoId]);
+  }, [photoId]);
 
   return (
     <Box className={`${styles.photoItem} ${isExiting ? styles.exiting : ""}`}>

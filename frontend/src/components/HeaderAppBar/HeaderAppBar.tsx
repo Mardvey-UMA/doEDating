@@ -11,17 +11,24 @@ import {
 import PaletteIcon from "@mui/icons-material/Palette";
 import styles from "./HeaderAppBar.module.scss";
 import { useDispatch } from "react-redux";
-//import { RootState } from "../../store";
 import { setTheme, ThemeType } from "../../store/themeSlice";
+import { updateUser } from "../../services/userService";
 
 const HeaderAppBar: React.FC = () => {
-  //const currentTheme = useSelector((state: RootState) => state.theme.theme);
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleThemeChange = (theme: ThemeType) => {
-    dispatch(setTheme(theme));
-    handleClose();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const handleThemeChange = async (theme: ThemeType) => {
+    try {
+      await updateUser({ theme });
+  
+      dispatch(setTheme(theme));
+    } catch (error) {
+      console.error("Ошибка при обновлении темы:", error);
+      alert("Не удалось изменить тему. Попробуйте ещё раз.");
+    } finally {
+      handleClose();
+    }
   };
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -42,7 +49,7 @@ const HeaderAppBar: React.FC = () => {
             </Typography>
           </Box>
           <Typography variant="h4" noWrap className={styles.title}>
-            Kafka Dating
+            Doedating
           </Typography>
         </Box>
 

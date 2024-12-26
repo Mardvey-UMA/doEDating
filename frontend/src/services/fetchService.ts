@@ -24,7 +24,7 @@ export const fetchWithToken = async <T>(
 ): Promise<T | void> => {
   const state: RootState = store.getState();
   let accessToken = state.auth.token;
-
+  console.log('Отправлен запрос с токеном', url);
   const headers = {
     ...options.headers,
     Authorization: accessToken ? `Bearer ${accessToken}` : "",
@@ -38,7 +38,9 @@ export const fetchWithToken = async <T>(
       ...options,
       headers,
     });
-
+    if (response.status == 200){
+      console.log('Отправлен запрос с токеном 200 OK', url);
+    }
     if (response.status === 401) {
       if (!isRefreshing) {
         isRefreshing = true;
@@ -88,6 +90,36 @@ export const fetchWithToken = async <T>(
   } catch (error) {
     console.error("Ошибка запроса с токеном:", error);
     throw new Error("Ошибка при запросе данных с токеном");
+  }
+};
+export const fetchWithTokenForSSE = async (
+  url: string
+): Promise<EventSource | void> => {
+  const state: RootState = store.getState();
+  const accessToken = state.auth.token;
+
+  if (!accessToken) {
+    throw new Error("Отсутствует токен доступа");
+  }
+
+  const urlWithToken = `${url}?access_token=${accessToken}`;
+
+  try {
+    const eventSource = new EventSource(urlWithToken);
+
+    eventSource.onopen = () => {
+      console.log("SSE соединение установлено");
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("Ошибка SSE:", error);
+      eventSource.close();
+    };
+
+    return eventSource;
+  } catch (error) {
+    console.error("Ошибка при подключении к SSE потоку:", error);
+    throw new Error("Ошибка при подключении к SSE потоку");
   }
 };
 

@@ -13,34 +13,33 @@
   width: 100%;
   max-height: 800px;
   min-height: 100px;
-  max-width: 400px; /* Ограничиваем ширину контейнера */
+  max-width: 400px; /* ограничиваем ширину контейнера */
   padding: 40px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column; /* Кнопки и поля будут в столбик */
-  gap: 10px; /* Отступы между элементами */
-  margin: 20px; /* Добавляем отступы слева и справа, если ширина экрана меньше */
+  flex-direction: column; 
+  gap: 10px; 
+  margin: 20px; /* добавляем отступы слева и справа, если ширина экрана меньше */
   h1 {
-    font-size: 24px; /* Размер шрифта */
-    color: var(--primary-color); /* Цвет текста из темы */
-    margin-bottom: 20px; /* Отступ снизу */
-    text-align: center; /* Выравнивание по центру */
+    font-size: 24px; 
+    color: var(--primary-color); 
+    margin-bottom: 20px; 
+    text-align: center; 
   }
 }
 
 .inputField {
-  margin-bottom: 2px; /* Отступ между полями */
+  margin-bottom: 2px; 
 }
 
 .error {
-  color: var(--error-color); /* Сообщение об ошибке */
+  color: var(--error-color);
   font-size: 12px;
   margin-top: -10px;
 }
 
-/* Кнопка для входа через ВКонтакте */
 .vkButton {
   background-color: var(--primary-color);
   color: #fff;

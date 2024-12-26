@@ -1,13 +1,13 @@
 // src/styles/variables.dark.scss
 
-$primary-main: #deb9ff;
-$primary-light: #a869cc;
-$primary-dark: #8f44bb;
+$primary-main: #d4d4d4;
+$primary-light: #939393;
+$primary-dark: #505050;
 $primary-contrast-text: #ffffff;
 
-$secondary-main: #944dbd;
-$secondary-light: #ffffff;
-$secondary-dark: #620a96;
+$secondary-main: #7f7f7f;
+$secondary-light: #555555;
+$secondary-dark: #3c3c3c;
 $secondary-contrast-text: #000000;
 
 $error-main: #cf6679;
@@ -28,18 +28,18 @@ $info-contrast-text: #ffffff;
 $success-main: #4caf50;
 $success-light: #80e27e;
 $success-dark: #087f23;
-$success-contrast-text: #ffffff;
+$success-contrast-text: #505050;
 
-$background-default: #121212;
-$background-paper: #1e1e1e;
+$background-default: #232323;
+$background-paper: #000000;
 
 $text-primary: #ffffff;
 $text-secondary: #b3b3b3;
 $text-disabled: #666666;
 
 $action-active: #ffffff;
-$action-hover: rgba(187, 134, 252, 0.08);
-$action-selected: rgba(187, 134, 252, 0.16);
+$action-hover: rgba(186, 186, 186, 0.08);
+$action-selected: rgba(164, 164, 164, 0.16);
 $action-disabled: rgb(255, 255, 255);
 $action-disabled-background: rgba(255, 255, 255, 0.12);
-$action-focus: rgba(187, 134, 252, 0.12);
+$action-focus: rgba(69, 69, 69, 0.12);

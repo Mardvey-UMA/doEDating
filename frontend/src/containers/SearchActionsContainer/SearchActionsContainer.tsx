@@ -37,7 +37,7 @@ const SearchActionsContainer: React.FC = () => {
       } catch (error) {
         console.error("Ошибка при отправке лайка:", error);
       } finally {
-        dispatch(nextUser());  // Перелистываем пользователя, независимо от ошибки
+        dispatch(nextUser());
       }
     }
   };
@@ -50,7 +50,7 @@ const SearchActionsContainer: React.FC = () => {
       } catch (error) {
         console.error("Ошибка при отправке лайка:", error);
       } finally {
-        dispatch(nextUser());  // Перелистываем пользователя, независимо от ошибки
+        dispatch(nextUser());
       }
     }
   };
